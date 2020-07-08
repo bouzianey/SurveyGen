@@ -4,47 +4,82 @@ import SurveyInput from './SurveyInput';
 const Form = () => {
     const [instructorState, setInstructorState] = useState({
         Instructor: '',
+    });
+    const [SurveyNameState, setSurveyNameState] = useState({
         surveyName: '',
     });
 
-    const handleOwnerChange = (e) => setInstructorState({
-        ...instructorState,
-        [e.target.name]: [e.target.value],
+    const handleInstructorChange = (e) => setInstructorState({
+        [e.target.name]: e.target.value
+    })
+
+    const handleSurveyNameChange = (e) => setSurveyNameState({
+        [e.target.name]: e.target.value
     });
 
-    const blankQuestion = { name: '', type:""};
+
+    const [questionType, setQuestionType] = useState('text');
+    const handleSelectChange = e => setQuestionType(e.target.value);
+
+    const [questionRepetition, setQuestionRepetition] = useState('once');
+    const handleQuestionRepetitionChange = e => setQuestionRepetition(e.target.value);
+
     const [question, setQuestion] = useState([
-        { ...blankQuestion },
     ]);
 
     const addQuestion = () => {
-        setQuestion([...question, { ...blankQuestion }]);
+        const newQuestion = {  label: `Question #${question.length+1}`, type: questionType , Repetition: questionRepetition }
+        if(questionType === 'radio') newQuestion.options = [{content:'', label:''}];
+        else newQuestion.content=  '';
+        setQuestion([...question, newQuestion]);
     };
 
-    const handleQuestionChange = (e) => {
-        const updateQuestion = [...question];
-        updateQuestion[e.target.dataset.idx][e.target.className] = e.target.value;
-        setQuestion(updateQuestion);
-    };
+    const handleQuestionChange = (newQuestion, idx) => {
+        const newQuestions = [...question];
+        if(questionType === 'radio') newQuestions[idx].options = newQuestion;
+        else newQuestions[idx].content = newQuestion;
+        //setQuestion(newQuestions);
+    }
+
+    const submit = e => {
+        e.preventDefault();
+        const objectTosend = {
+            survey: SurveyNameState.surveyName,
+            instructor: instructorState.Instructor,
+            questionList: question
+        }
+        // axios.post("python endpoint", )
+        console.log(objectTosend);
+    }
 
     return (
-        <form>
+        <form onSubmit={submit}>
             <label htmlFor="Instructor">Instrcutor:</label>
             <input
                 type="text"
-                name="owner"
-                id="owner"
+                name="Instructor"
+                id="Instructor"
                 value={instructorState.Instructor}
-                onChange={handleOwnerChange}
+                onChange={handleInstructorChange}
             />
             <label htmlFor="surveyName">Survey Name:</label>
             <input
                 type="text"
-                name="description"
-                id="description"
-                value={instructorState.surveyName}
-                onChange={handleOwnerChange}
+                name="surveyName"
+                id="surveyName"
+                value={SurveyNameState.surveyName}
+                onChange={handleSurveyNameChange}
             />
+            <label htmlFor="QuestionType">Choose Your Question Type:</label>
+            <select onChange={handleSelectChange} value={questionType} name="questionType" id="questionType">
+                <option value="radio">Radio</option>
+                <option value="text">Text</option>
+            </select>
+            <label htmlFor="QuestionRepetition">will the question repeat ?:</label>
+            <select onChange={handleQuestionRepetitionChange} value={questionRepetition} name="questionRepetition" id="questionRepetition">
+                <option value="multiple">multiple</option>
+                <option value="single">Once</option>
+            </select>
             <input
                 type="button"
                 value="Add New Question"
@@ -55,7 +90,7 @@ const Form = () => {
                     <SurveyInput
                         key={`question-${idx}`}
                         idx={idx}
-                        question={question}
+                        question={val}
                         handleQuestionChange={handleQuestionChange}
                     />
                 ))
@@ -66,3 +101,5 @@ const Form = () => {
 };
 
 export default Form;
+
+

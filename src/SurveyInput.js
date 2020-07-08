@@ -1,37 +1,42 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import MultipleQuestionInput from './MultipleQuestionInput';
 
-const SurveyInput = ({ idx, question, handleQuestionChange: handleQuestionChange }) => {
+const SurveyInput = ({ idx, question, handleQuestionChange }) => {
+
     const questionID = `name-${idx}`;
+    const NewTextContent = '';
+    const [TextContent, setTextContent] = useState(question.content);
 
-    const blankOption= { name: '', type:'' };
-    const [option, setOption] = useState([
-        { ...blankOption },
-    ]);
+    const blankOption= { content:'', label:'' };
+    const [option, setOption] = useState(question.options);
 
      const addOption = () => {
         setOption([...option, { ...blankOption }]);
     };
 
-     const handleOptionChange = (e) => {
-        const updateOption = [...option];
-        updateOption[e.target.dataset.idx][e.target.className] = e.target.value;
-        setOption(updateOption);
+     const addTextContent = () => {
+        setTextContent([...TextContent, { ...NewTextContent }]);
     };
 
-    return (
-        <div key={`question-${idx}`}>
+     const handleOptionChange = (e) => {
+        const updateOption = [...option];
+        updateOption[e.target.dataset.idx]['content'] = e.target.value;
+        updateOption[e.target.dataset.idx]['label'] = e.target.dataset.idx;
+        handleQuestionChange(updateOption, idx)
 
-            <label htmlFor={questionID}>{`Question #${idx + 1}`}</label>
-            <input
-                type="text"
-                name={questionID}
-                data-idx={idx}
-                id={questionID}
-                className="name"
-                value=""
-                onChange={handleQuestionChange}
-            />
+    };
+
+     const handleTextContentChange = (e) => {
+
+        handleQuestionChange(e.target.value, idx)
+
+    };
+
+     const getRadioQuestion = () => <div key={`question-${idx}`}>
+
+            <label htmlFor={questionID}>{question.label}</label>
+
             <input
                 type="button"
                 value="Add another sub-question"
@@ -43,43 +48,40 @@ const SurveyInput = ({ idx, question, handleQuestionChange: handleQuestionChange
                     <MultipleQuestionInput
                         key={`option-${idx}`}
                         idx={idx}
-                        question={question}
-                        handleOtionChange={handleOptionChange}
+                        option={val}
+                        handleOptionChange={handleOptionChange}
                     />
                 ))
             }
-        </div>
-    );
-};
+            </div>
 
-const MultipleQuestionInput = ({ idx, option, handleOptionChange: handleOptionChange }) => {
-    const OptionID = `name-${idx}`;
-    return (
-        <div key={`option-${idx}`}>
+    const getTextQuestion = () => <div key={`question-${idx}`}>
+
+            <label htmlFor={questionID}>{question.label}</label>
             <input
                 type="text"
-                name={OptionID}
+                name={ContentID}
                 data-idx={idx}
-                id={OptionID}
+                id={ContentID}
                 className="name"
-                value={option[idx]}
-                onChange={handleOptionChange}
+                value={TextContent.value}
+                onChange={handleTextContentChange}
             />
-        </div>
+            </div>
+            const ContentID = `sub-content-${idx}`;
+    return (
+
+        question.type === "radio" ? getRadioQuestion() : getTextQuestion()
+
     );
 };
 
 SurveyInput.propTypes = {
     idx: PropTypes.number,
-    question: PropTypes.array,
+    question: PropTypes.object,
     handleQuestionChange: PropTypes.func,
 };
 
-MultipleQuestionInput.propTypes = {
-    idx: PropTypes.number,
-    option: PropTypes.array,
-    handleOptionChange: PropTypes.func,
-};
-
 export default SurveyInput;
+
 

@@ -18,14 +18,13 @@ const Form = () => {
     });
 
 
-    const [questionType, setQuestionType] = useState('text');
+    const [questionType, setQuestionType] = useState('radio');
     const handleSelectChange = e => setQuestionType(e.target.value);
 
-    const [questionRepetition, setQuestionRepetition] = useState('once');
+    const [questionRepetition, setQuestionRepetition] = useState('multiple');
     const handleQuestionRepetitionChange = e => setQuestionRepetition(e.target.value);
 
-    const [question, setQuestion] = useState([
-    ]);
+    const [question, setQuestion] = useState([]);
 
     const addQuestion = () => {
         const newQuestion = {  label: `Question #${question.length+1}`, type: questionType , Repetition: questionRepetition }
@@ -36,20 +35,28 @@ const Form = () => {
 
     const handleQuestionChange = (newQuestion, idx) => {
         const newQuestions = [...question];
-        if(questionType === 'radio') newQuestions[idx].options = newQuestion;
-        else newQuestions[idx].content = newQuestion;
-        //setQuestion(newQuestions);
+        newQuestions[idx].options = newQuestion;
+        setQuestion(newQuestions);
+
     }
+
+    const handleTextContentChange = (e, idx) => {
+
+        const newQuestions = [...question];
+        newQuestions[idx].content = e.target.value;
+        setQuestion(newQuestions);
+
+    };
 
     const submit = e => {
         e.preventDefault();
-        const objectTosend = {
+        const objectToSend = {
             survey: SurveyNameState.surveyName,
             instructor: instructorState.Instructor,
             questionList: question
         }
         // axios.post("python endpoint", )
-        console.log(objectTosend);
+        console.log(objectToSend);
     }
 
     return (
@@ -92,6 +99,7 @@ const Form = () => {
                         idx={idx}
                         question={val}
                         handleQuestionChange={handleQuestionChange}
+                        handleTextContentChange={handleTextContentChange}
                     />
                 ))
             }

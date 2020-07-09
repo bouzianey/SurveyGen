@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import MultipleQuestionInput from './MultipleQuestionInput';
 
-const SurveyInput = ({ idx, question, handleQuestionChange }) => {
+const SurveyInput = ({ idx, question, handleQuestionChange, handleTextContentChange }) => {
 
     const questionID = `name-${idx}`;
     const NewTextContent = '';
@@ -15,10 +15,6 @@ const SurveyInput = ({ idx, question, handleQuestionChange }) => {
         setOption([...option, { ...blankOption }]);
     };
 
-     const addTextContent = () => {
-        setTextContent([...TextContent, { ...NewTextContent }]);
-    };
-
      const handleOptionChange = (e) => {
         const updateOption = [...option];
         updateOption[e.target.dataset.idx]['content'] = e.target.value;
@@ -27,9 +23,9 @@ const SurveyInput = ({ idx, question, handleQuestionChange }) => {
 
     };
 
-     const handleTextContentChange = (e) => {
+     const handleTextChange = (e) => {
 
-        handleQuestionChange(e.target.value, idx)
+        handleTextContentChange(e.target.value, idx)
 
     };
 
@@ -65,7 +61,8 @@ const SurveyInput = ({ idx, question, handleQuestionChange }) => {
                 id={ContentID}
                 className="name"
                 value={TextContent.value}
-                onChange={handleTextContentChange}
+                onChange={handleTextChange}
+
             />
             </div>
             const ContentID = `sub-content-${idx}`;

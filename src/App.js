@@ -40,10 +40,10 @@ const Form = () => {
 
     }
 
-    const handleTextContentChange = (e, idx) => {
+    const handleTextContentChange = (val, idx) => {
 
         const newQuestions = [...question];
-        newQuestions[idx].content = e.target.value;
+        newQuestions[idx].content = val;
         setQuestion(newQuestions);
 
     };

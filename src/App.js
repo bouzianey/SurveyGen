@@ -55,8 +55,15 @@ const Form = () => {
             instructor: instructorState.Instructor,
             questionList: question
         }
-        // axios.post("python endpoint", )
-        console.log(objectToSend);
+
+        fetch('http://localhost:5000/api_post', {
+            method: 'POST',
+            headers: {
+            'Content-type': 'application/json',
+        },
+            body: JSON.stringify(objectToSend),
+        }).then(res => res.json())
+            .then(res => console.log(res));
     }
 
     return (

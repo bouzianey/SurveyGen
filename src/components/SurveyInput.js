@@ -6,7 +6,7 @@ const SurveyInput = ({ idx, question, handleQuestionChange, handleTextContentCha
 
     const questionID = `name-${idx}`;
     const NewTextContent = '';
-    const [TextContent, setTextContent] = useState(question.content);
+    const [TextContent, setTextContent] = useState(question.content || '');
 
     const blankOption= { content:'', label:'' };
     const [option, setOption] = useState(question.options);
@@ -25,7 +25,8 @@ const SurveyInput = ({ idx, question, handleQuestionChange, handleTextContentCha
 
      const handleTextChange = (e) => {
 
-        handleTextContentChange(e.target.value, idx)
+         setTextContent(e.target.value);
+        handleTextContentChange(e.target.value, idx);
 
     };
 
@@ -60,7 +61,7 @@ const SurveyInput = ({ idx, question, handleQuestionChange, handleTextContentCha
                 data-idx={idx}
                 id={ContentID}
                 className="name"
-                value={TextContent.value}
+                value={TextContent}
                 onChange={handleTextChange}
 
             />
@@ -68,7 +69,10 @@ const SurveyInput = ({ idx, question, handleQuestionChange, handleTextContentCha
             const ContentID = `sub-content-${idx}`;
     return (
 
-        question.type === "radio" ? getRadioQuestion() : getTextQuestion()
+        <>
+            { question.type === "radio" && getRadioQuestion()}
+            {question.type === "text" && getTextQuestion()}
+        </>
 
     );
 };

@@ -1,0 +1,53 @@
+.page-wrap{
+	width:100%;
+	margin:auto;
+	max-width:375px;
+	min-height:100vh;
+	position:relative;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 120px;
+  right: 100px;
+  border: 10px solid #f1f1f1;
+  z-index: 9;
+  background-color: lightskyblue;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 100%;
+  padding: 10px;
+  background-color: dodgerblue;
+}
+
+ /* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.btn-cancel {
+  background-color: red;
+  position: center;
+}
+
+.btn-primary {
+  background-color: black;
+  border-color: black;
+}

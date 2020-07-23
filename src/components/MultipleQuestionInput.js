@@ -12,7 +12,7 @@ const MultipleQuestionInput = ({ idx, option, handleOptionChange }) => {
                 data-idx={idx}
                 id={OptionID}
                 className="name"
-                value={option.value}
+                value={option.content}
                 onChange={handleOptionChange}
             />
         </div>

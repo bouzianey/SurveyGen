@@ -1,120 +1,29 @@
-import React, { useState } from 'react';
-import SurveyInput from './SurveyInput';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact  from "./components/Contact";
+import Form from "./components/SurveyFormGen"
+import DisplayClassSurvey from "./components/DisplaySurvey"
 
-const Form = () => {
-    const [instructorState, setInstructorState] = useState({
-        Instructor: '',
-    });
-    const [SurveyNameState, setSurveyNameState] = useState({
-        surveyName: '',
-    });
+function App() {
+  return (
+    <div className="App">
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route path="/" exact component={() => <Home />} />
+          <Route path="/about" exact component={() => <About />} />
+          <Route path="/contact" exact component={() => <Contact />} />
+          <Route path="/SurveyFormGenerator" exact component={() => <Form />} />
+          <Route path="/DisplaySurvey" exact component={() => <DisplayClassSurvey />} />
+        </Switch>
+        <Footer />
+      </Router>
+    </div>
+  );
+}
 
-    const handleInstructorChange = (e) => setInstructorState({
-        [e.target.name]: e.target.value
-    })
-
-    const handleSurveyNameChange = (e) => setSurveyNameState({
-        [e.target.name]: e.target.value
-    });
-
-
-    const [questionType, setQuestionType] = useState('radio');
-    const handleSelectChange = e => setQuestionType(e.target.value);
-
-    const [questionRepetition, setQuestionRepetition] = useState('multiple');
-    const handleQuestionRepetitionChange = e => setQuestionRepetition(e.target.value);
-
-    const [question, setQuestion] = useState([]);
-
-    const addQuestion = () => {
-        const newQuestion = {  label: `Question #${question.length+1}`, type: questionType , Repetition: questionRepetition }
-        if(questionType === 'radio') newQuestion.options = [{content:'', label:''}];
-        else newQuestion.content=  '';
-        setQuestion([...question, newQuestion]);
-    };
-
-    const handleQuestionChange = (newQuestion, idx) => {
-        const newQuestions = [...question];
-        newQuestions[idx].options = newQuestion;
-        setQuestion(newQuestions);
-
-    }
-
-    const handleTextContentChange = (val, idx) => {
-
-        const newQuestions = [...question];
-        newQuestions[idx].content = val;
-        setQuestion(newQuestions);
-
-    };
-
-    const submit = e => {
-        e.preventDefault();
-        const objectToSend = {
-            survey: SurveyNameState.surveyName,
-            instructor: instructorState.Instructor,
-            questionList: question
-        }
-
-        fetch('http://localhost:5000/api_post', {
-            method: 'POST',
-            headers: {
-            'Content-type': 'application/json',
-        },
-            body: JSON.stringify(objectToSend),
-        }).then(res => res.json())
-            .then(res => console.log(res));
-    }
-
-    return (
-        <form onSubmit={submit}>
-            <label htmlFor="Instructor">Instrcutor:</label>
-            <input
-                type="text"
-                name="Instructor"
-                id="Instructor"
-                value={instructorState.Instructor}
-                onChange={handleInstructorChange}
-            />
-            <label htmlFor="surveyName">Survey Name:</label>
-            <input
-                type="text"
-                name="surveyName"
-                id="surveyName"
-                value={SurveyNameState.surveyName}
-                onChange={handleSurveyNameChange}
-            />
-            <label htmlFor="QuestionType">Choose Your Question Type:</label>
-            <select onChange={handleSelectChange} value={questionType} name="questionType" id="questionType">
-                <option value="radio">Radio</option>
-                <option value="text">Text</option>
-            </select>
-            <label htmlFor="QuestionRepetition">will the question repeat ?:</label>
-            <select onChange={handleQuestionRepetitionChange} value={questionRepetition} name="questionRepetition" id="questionRepetition">
-                <option value="multiple">multiple</option>
-                <option value="single">Once</option>
-            </select>
-            <input
-                type="button"
-                value="Add New Question"
-                onClick={addQuestion}
-            />
-            {
-                question.map((val, idx) => (
-                    <SurveyInput
-                        key={`question-${idx}`}
-                        idx={idx}
-                        question={val}
-                        handleQuestionChange={handleQuestionChange}
-                        handleTextContentChange={handleTextContentChange}
-                    />
-                ))
-            }
-            <input type="submit" value="Submit" />
-        </form>
-    );
-};
-
-export default Form;
-
-
+export default App;

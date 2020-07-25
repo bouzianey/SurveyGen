@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import SurveyInput from './SurveyInput';
+import './SignUp.css'
 
-const Form = () => {
+const Form = ({user}) => {
     const [instructorState, setInstructorState] = useState("");
     const [SurveyNameState, setSurveyNameState] = useState("");
 
@@ -71,6 +72,7 @@ const Form = () => {
     const submit = e => {
         e.preventDefault();
         const objectToSend = {
+            id : user.id,
             survey: SurveyNameState,
             instructor: instructorState,
             questionList: question
@@ -86,7 +88,8 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={submit}>
+        <div className="wrapper">
+        <form onSubmit={submit} className="form-wrapper">
             <label htmlFor="Instructor">Instrcutor:</label>
             <input
                 type="text"
@@ -103,7 +106,6 @@ const Form = () => {
                 value={SurveyNameState}
                 onChange={handleSurveyNameChange}
             />
-            <br/>
             <label htmlFor="QuestionType">Choose Your Question Type:</label>
             <select onChange={handleSelectChange} value={questionType} name="questionType" id="questionType">
                 <option value="radio">Grid</option>
@@ -132,8 +134,9 @@ const Form = () => {
                     />
                 ))
             }
-            <input type="submit" value="Save" />
+            <input type="submit" className="btn-primary" value="Save" />
         </form>
+        </div>
     );
 };
 

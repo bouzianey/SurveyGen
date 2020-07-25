@@ -1,9 +1,10 @@
 import React from "react";
+import './popup_window.css'
 
 function Footer() {
   return (
-    <div className="footer">
-      <footer class="py-5 bg-dark fixed-bottom">
+    <div className="footer_main">
+      <footer>
         <div class="container">
           <p class="m-0 text-center text-white">
             Copyright &copy; Smart Survey

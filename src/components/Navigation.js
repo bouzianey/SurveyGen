@@ -2,15 +2,16 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
 function Navigation(props) {
+  console.log(props.loggedInStatus);
   return (
     <div className="navigation">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container">
           <Link class="navbar-brand" to="/">
             Smart Survey
           </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarResponsive"
@@ -20,52 +21,92 @@ function Navigation(props) {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+          <div className="collapse navbar-collapse" id="navbarResponsive">
+            <ul className="navbar-nav ml-auto">
               <li
-                class={`nav-item  ${
+                className={`nav-item  ${
                   props.location.pathname === "/" ? "active" : ""
                 }`}
               >
                 <Link class="nav-link" to="/">
                   Home
-                  <span class="sr-only">(current)</span>
+                  <span className="sr-only">(current)</span>
                 </Link>
               </li>
-              <li
-                class={`nav-item  ${
-                  props.location.pathname === "/about" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-              <li
-                class={`nav-item  ${
-                  props.location.pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/contact">
-                  Contact
-                </Link>
-              </li>
+               { props.loggedInStatus == "LOGGED_IN" ?
               <li
                   className={`nav-item  ${
                       props.location.pathname === "/SurveyFormGenerator" ? "active" : ""
                   }`}
               >
-                <Link class="nav-link" to="/SurveyFormGenerator">
+                <Link className="nav-link" to="/SurveyFormGenerator">
                   Create Survey
                 </Link>
-              </li>
+              </li>: ""
+              }
+
+              { props.loggedInStatus == "LOGGED_IN" ?
               <li
                   className={`nav-item  ${
                       props.location.pathname === "/DisplaySurvey" ? "active" : ""
                   }`}
               >
-                <Link class="nav-link" to="/DisplaySurvey">
+                <Link className="nav-link" to="/DisplaySurvey">
                   Display Survey list
+                </Link>
+              </li>
+                  : ""
+              }
+              { props.loggedInStatus == "NOT_LOGGED_IN" ?
+              <li
+                  className={`nav-item  ${
+                      props.location.pathname === "/SignUp" ? "active" : ""
+                  }`}
+              >
+                <Link className="nav-link" to="/SignUp">
+                  Sign up
+                </Link>
+              </li> : ""
+              }
+              { props.loggedInStatus == "NOT_LOGGED_IN"  ?
+              <li
+                  className={`nav-item  ${
+                      props.location.pathname === "/SignIn" ? "active" : ""
+                  }`}
+              >
+                <Link class="nav-link" to="/SignIn">
+                  Sign in
+                </Link>
+              </li>: ""
+              }
+
+              { props.loggedInStatus == "LOGGED_IN"  ?
+                <li
+                  className={`nav-item  ${
+                      props.location.pathname === "/LogOut" ? "active" : ""
+                  }`}
+              >
+                <Link className="nav-link" to="/LogOut">
+                  Log out
+                </Link>
+              </li> : ""
+              }
+              <li
+                  className={`nav-item  ${
+                      props.location.pathname === "/contact" ? "active" : ""
+                  }`}
+              >
+                <Link className="nav-link" to="/contact">
+                  Contact
+                </Link>
+              </li>
+              <li
+                  className={`nav-item  ${
+                      props.location.pathname === "/about" ? "active" : ""
+                  }`}
+              >
+                <Link className="nav-link" to="/about">
+                  About
                 </Link>
               </li>
             </ul>

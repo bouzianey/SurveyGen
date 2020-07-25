@@ -1,3 +1,37 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+    background-color: mediumturquoise;
+}
+.footer_main {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: black;
+   color: white;
+   text-align: center;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #258ea6;
+}
+
+.form-wrapper-survey {
+  height: 110vh;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #258ea6;
+}
 .page-wrap{
 	width:100%;
 	margin:auto;
@@ -11,14 +45,27 @@ body {
   font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
+.form-wrapper {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 50px #555;
+  background-color: #ffffff;
+}
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
-  position: fixed;
-  bottom: 120px;
-  right: 100px;
+  width: 550px;
+  right: 200px;
   border: 10px solid #f1f1f1;
+  border-radius: 10px;
   z-index: 9;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 10px 50px #555;
   background-color: lightskyblue;
 }
 
@@ -44,10 +91,10 @@ body {
 /* Add a red background color to the cancel button */
 .btn-cancel {
   background-color: red;
-  position: center;
+  border-color: black;
 }
 
 .btn-primary {
-  background-color: black;
+  background-color: #519e8a;
   border-color: black;
 }

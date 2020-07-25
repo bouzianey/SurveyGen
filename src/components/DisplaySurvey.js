@@ -3,22 +3,29 @@ import TextComponent from './QuestionTextResponse';
 import RadioComponent from './QuestionRadioResponse';
 import Form from './SurveyFormMod';
 import './popup_window.css'
+import './SignUp.css'
 
-function DisplayClassSurvey() {
+const DisplayClassSurvey = ({user}) =>{
 
         const [studentSurveyList, setStudentSurveyList] = useState([]);
         const [studentSurveyQuestion, setStudentSurveyQuestion] = useState([]);
         const [studentSurvey, setStudentSurvey] = useState([]);
         const [survey_id, setSurveyID] = useState("");
         const [isShown, setShown] = useState(false);
+        const [isShownButton, setShownButton] = useState(false);
+        const [isShownModButton, setShownModButton] = useState(false);
+        const [isDisplayed, setIsDisplayed] = useState(true);
 
-        const displaySurveyList = e => {
-                e.preventDefault();
+         const displaySurveyList = e => {
+
+            setIsDisplayed(false);
 
             fetch("http://localhost:5000/get_survey_list", {
+                method: "POST",
                 headers: {
                 "Content-type": "application/json",
               },
+                body: JSON.stringify(user.id),
             })
               .then((res) => res.json())
               .then((res) => {
@@ -29,7 +36,8 @@ function DisplayClassSurvey() {
         const displaySurvey = (id) => {
 
             setShown(false);
-
+            setShownModButton(true);
+            setSurveyID(id);
             fetch("http://localhost:5000/get_api", {
                 method: "POST",
                 headers: {
@@ -44,17 +52,17 @@ function DisplayClassSurvey() {
               });
             openForm_Instructions();
       };
-        const modifySurvey = (id) => {
+        const modifySurvey = () => {
             setStudentSurveyQuestion([]);
-            setSurveyID(id);
             setShown(true);
+            setShownModButton(false);
 
             fetch("http://localhost:5000/get_api", {
                 method: "POST",
                 headers: {
                 "Content-type": "application/json",
               },
-                body: JSON.stringify(id),
+                body: JSON.stringify(survey_id),
             })
               .then((res) => res.json())
               .then((res) => {
@@ -64,27 +72,32 @@ function DisplayClassSurvey() {
       };
             const openForm_Instructions = () => {
                 document.getElementById("instructionForm").style.display = "block";
+                setShownButton(true);
             };
             const closeForm_Instructions = () => {
                 document.getElementById("instructionForm").style.display = "none";
+                setShownButton(false);
+                setShownModButton(false);
             };
+
   return (
-    <div className="App">
-        <input type="submit" onClick={displaySurveyList} value="Display All Survey List" />
-        <table border={2}>
+    <div className="wrapper" id="1">
+        {
+                isDisplayed == true ? displaySurveyList() : ""
+        }
+        <table border={2} id="1">
             {
                 studentSurveyList.map((surveyList, idx) => (
                     <tr>
                         <td><b>{surveyList.surveyID}: </b></td><td><b>Name :</b> {surveyList.name} </td><td><b>Date :</b> {surveyList.date} </td>
-                        <td><input type="submit" onClick={(id) =>displaySurvey(surveyList.surveyID)}  value="Display Survey" /></td>
-                        <td><input type="submit" onClick={(id) =>modifySurvey(surveyList.surveyID)}  value="Use Survey Content" /></td>
+                        <td><input type="submit" className="btn-primary" onClick={(id) =>displaySurvey(surveyList.surveyID)}  value="Display Survey" /></td>
                     </tr>
 
                 ))
             }
         </table>
         <br/>
-        <div class="form-popup" id="instructionForm">
+        <div className="form-popup" id="instructionForm">
             {
                 studentSurveyQuestion.map((question, i) => (
                     <>
@@ -96,8 +109,15 @@ function DisplayClassSurvey() {
                 ))
 
             }
-              { isShown && <Form surveyModification={studentSurvey}/> }
-            <button type="button" className="btn-cancel" onClick={closeForm_Instructions}>Close</button>
+              {
+                  isShown == true ? <Form surveyModification={studentSurvey} user={user}/> : ""
+              }
+            {
+                isShownButton == true ? <input type="submit" className="btn-cancel" onClick={closeForm_Instructions} value="Close"/> : ""
+            }
+            {
+                isShownModButton == true ? <input type="submit" className="btn-primary" onClick={(id) =>modifySurvey()}  value="Use Survey Content" /> : ""
+            }
         </div>
 
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SurveyInput from './SurveyInput';
 
-const Form = ({surveyModification}) => {
+const Form = ({surveyModification, user}) => {
     const [instructorState, setInstructorState] = useState(surveyModification.InstructorName);
     const [SurveyNameState, setSurveyNameState] = useState(surveyModification.surveyName);
 
@@ -47,6 +47,7 @@ const Form = ({surveyModification}) => {
     const submit = e => {
         e.preventDefault();
         const objectToSend = {
+            id: user.id,
             survey: SurveyNameState,
             instructor: instructorState,
             questionList: question
@@ -108,7 +109,7 @@ const Form = ({surveyModification}) => {
                     />
                 ))
             }
-            <input type="submit" value="Save" />
+            <input type="submit" className="btn-primary" value="Save" />
         </form>
     );
 };

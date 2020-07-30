@@ -10,6 +10,7 @@ import DisplayClassSurvey from "./components/DisplaySurvey"
 import SignUpForm from "./components/SignUp"
 import SignInForm from "./components/SignIn"
 import LogOutForm from "./components/LogOut"
+import ClassManager from "./components/ClassManager"
 
 
 function App() {
@@ -81,6 +82,9 @@ function App() {
           <Route
               path="/DisplaySurvey"
               exact component={() => loggedInStatus  === "LOGGED_IN" ? <DisplayClassSurvey user={user}/> : ""}
+          />
+          <Route path="/ClassManager"
+                 exact component={() => loggedInStatus  === "LOGGED_IN" ? <ClassManager  user={user}/> : ""}
           />
           <Route path="/SignUp"
                  exact component={() => loggedInStatus  === "NOT_LOGGED_IN" ? <SignUpForm  onChangeLogin={handleLogin}/> : ""}

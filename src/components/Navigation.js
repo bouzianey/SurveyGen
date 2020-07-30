@@ -57,6 +57,18 @@ function Navigation(props) {
               </li>
                   : ""
               }
+               { props.loggedInStatus == "LOGGED_IN" ?
+              <li
+                  className={`nav-item  ${
+                      props.location.pathname === "/ClassManager" ? "active" : ""
+                  }`}
+              >
+                <Link className="nav-link" to="/ClassManager">
+                  Manage Class
+                </Link>
+              </li>
+                  : ""
+              }
               { props.loggedInStatus == "NOT_LOGGED_IN" ?
               <li
                   className={`nav-item  ${

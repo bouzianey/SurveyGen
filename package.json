@@ -33,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "domkit": "0.0.3",
     "prop-types": "^15.7.2",
     "react-router-dom": "^5.2.0"
   },

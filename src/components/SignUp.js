@@ -32,7 +32,6 @@ const SignUpForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(emailState, passwordState);
     if (formValid) {
 
       const objectToSend = {

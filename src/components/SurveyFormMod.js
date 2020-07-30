@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import SurveyInput from './SurveyInput';
 
 const Form = ({surveyModification, user}) => {
-    const [instructorState, setInstructorState] = useState(surveyModification.InstructorName);
-    const [SurveyNameState, setSurveyNameState] = useState(surveyModification.surveyName);
 
-    const handleInstructorChange = (e) => setInstructorState(e.target.value);
+    const [SurveyNameState, setSurveyNameState] = useState(surveyModification.surveyName);
     const handleSurveyNameChange = (e) => setSurveyNameState(e.target.value);
 
 
@@ -49,11 +47,11 @@ const Form = ({surveyModification, user}) => {
         const objectToSend = {
             id: user.id,
             survey: SurveyNameState,
-            instructor: instructorState,
+            instructor: "",
             questionList: question
         }
 
-        fetch('http://localhost:5000/api_post', {
+        fetch('http://localhost:5000/add_survey_api', {
             method: 'POST',
             headers: {
             'Content-type': 'application/json',
@@ -64,14 +62,6 @@ const Form = ({surveyModification, user}) => {
 
     return (
         <form onSubmit={submit}>
-            <label htmlFor="Instructor">Instrcutor:</label>
-            <input
-                type="text"
-                name="Instructor"
-                id="Instructor"
-                value={instructorState}
-                onChange={handleInstructorChange}
-            />
             <label htmlFor="surveyName">Survey Name:</label>
             <input
                 type="text"

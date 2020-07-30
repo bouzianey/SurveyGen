@@ -3,13 +3,9 @@ import SurveyInput from './SurveyInput';
 import './SignUp.css'
 
 const Form = ({user}) => {
-    const [instructorState, setInstructorState] = useState("");
+
     const [SurveyNameState, setSurveyNameState] = useState("");
-
-    const handleInstructorChange = (e) => setInstructorState(e.target.value);
     const handleSurveyNameChange = (e) => setSurveyNameState(e.target.value);
-
-
 
     const [questionType, setQuestionType] = useState('radio');
     const handleSelectChange = e => setQuestionType(e.target.value);
@@ -45,40 +41,16 @@ const Form = ({user}) => {
         setQuestion(newQuestions);
 
     };
-    const displaySurvey = e => {
-                e.preventDefault();
-
-            fetch("http://localhost:5000/get_api", {
-              headers: {
-                "Content-type": "application/json",
-              },
-            })
-              .then((res) => res.json())
-              .then((res) => {
-                  setSurveyNameState(res.surveyName);
-                  setInstructorState(res.InstructorName);
-
-                  const questionsList = res.questionList;
-
-                  questionsList.forEach(questionMod => {
-
-                      addInitialQuestion(questionMod);
-
-                      }
-                  );
-
-              });
-      };
     const submit = e => {
         e.preventDefault();
         const objectToSend = {
             id : user.id,
             survey: SurveyNameState,
-            instructor: instructorState,
+            instructor: "",
             questionList: question
         }
 
-        fetch('http://localhost:5000/api_post', {
+        fetch('http://localhost:5000/add_survey_api', {
             method: 'POST',
             headers: {
             'Content-type': 'application/json',
@@ -90,14 +62,6 @@ const Form = ({user}) => {
     return (
         <div className="wrapper">
         <form onSubmit={submit} className="form-wrapper">
-            <label htmlFor="Instructor">Instrcutor:</label>
-            <input
-                type="text"
-                name="Instructor"
-                id="Instructor"
-                value={instructorState}
-                onChange={handleInstructorChange}
-            />
             <label htmlFor="surveyName">Survey Name:</label>
             <input
                 type="text"

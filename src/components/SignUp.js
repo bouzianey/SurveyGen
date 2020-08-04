@@ -29,6 +29,7 @@ const SignUpForm = () => {
 
     return valid;
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 

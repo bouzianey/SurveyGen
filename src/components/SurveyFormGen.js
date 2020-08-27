@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import SurveyInput from './SurveyInput';
-import './SignUp.css'
+import './styling.css';
 
 const Form = ({user}) => {
 
+    const [formErrorsState, setformErrorsState] = useState([]);
     const [SurveyNameState, setSurveyNameState] = useState("");
-    const handleSurveyNameChange = (e) => setSurveyNameState(e.target.value);
+    const [surveyErrorState, setSurveyErrorState] = useState("");
+    const [surveySuccessState, setSurveySuccessState] = useState("");
+
+
+    useEffect(() => {
+
+            if(question.length === 0){
+            formErrorsState.push({check_point: "invalid"})
+        }
+    }, []);
+    const handleSurveyNameChange = (e) => {
+        setSurveyNameState(e.target.value);
+
+        if(e.target.value.length === 0){
+
+            formErrorsState[0].check_point= "invalid";
+        }
+        else
+        {
+            formErrorsState[0].check_point= "valid";
+        }
+    }
 
     const [questionType, setQuestionType] = useState('radio');
     const handleSelectChange = e => setQuestionType(e.target.value);
@@ -15,10 +37,26 @@ const Form = ({user}) => {
 
     const [question, setQuestion] = useState([]);
 
+    const formValid = () => {
+
+        let valid = true;
+        console.log(formErrorsState);
+        // validate form errors being empty & the form was filled out
+        Object.values(formErrorsState).forEach(val => {
+          val.check_point === "invalid" && (valid = false);
+        });
+
+        return valid;
+    };
+
     const addQuestion = () => {
+
         const newQuestion = {  label: `Question #${question.length+1}`, type: questionType , repetition: questionRepetition }
+
         if(questionType === 'radio') newQuestion.options = [{content:'', label:''}];
         else newQuestion.content=  '';
+
+        formErrorsState.push({check_point: "invalid"});
         setQuestion([...question, newQuestion]);
     };
 
@@ -29,9 +67,19 @@ const Form = ({user}) => {
 
     const handleQuestionChange = (newQuestion, idx) => {
         const newQuestions = [...question];
+        let checker = "valid";
         newQuestions[idx].options = newQuestion;
         setQuestion(newQuestions);
 
+        Object.values(newQuestions[idx].options).forEach(val => {
+          val.content.length === 0 && (checker = "invalid");
+        });
+        if(checker === "valid"){
+            formErrorsState[idx+1].check_point = "valid";
+        }
+        else{
+            formErrorsState[idx+1].check_point = "invalid";
+        }
     }
 
     const handleTextContentChange = (val, idx) => {
@@ -40,43 +88,62 @@ const Form = ({user}) => {
         newQuestions[idx].content = val;
         setQuestion(newQuestions);
 
+        if(val.length === 0){
+
+            formErrorsState[idx+1].check_point= "invalid";
+        }
+        else
+        {
+            formErrorsState[idx+1].check_point= "valid";
+        }
     };
     const submit = e => {
-        e.preventDefault();
-        const objectToSend = {
-            id : user.id,
-            survey: SurveyNameState,
-            instructor: "",
-            questionList: question
-        }
 
-        fetch('http://localhost:5000/add_survey_api', {
-            method: 'POST',
-            headers: {
-            'Content-type': 'application/json',
-        },
-            body: JSON.stringify(objectToSend),
-        })
+        e.preventDefault();
+        if(formValid()){
+
+                const objectToSend = {
+                    id : user.id,
+                    survey: SurveyNameState,
+                    instructor: "",
+                    questionList: question
+                }
+                setSurveySuccessState("Survey was successfully created");
+                fetch('http://localhost:5000/add_survey_api', {
+                    method: 'POST',
+                    headers: {
+                    'Content-type': 'application/json',
+                },
+                    body: JSON.stringify(objectToSend),
+                })
+        }
+        else
+        {
+            setSurveyErrorState("Error ! There should be some missing fields in your form");
+        }
     }
 
     return (
         <div className="wrapper">
         <form onSubmit={submit} className="form-wrapper">
-            <label htmlFor="surveyName">Survey Name:</label>
+            <h5 htmlFor="surveyName">Survey Name:</h5>
             <input
                 type="text"
-                name="surveyName"
+                className={SurveyNameState.length === 0 ? "error" : null}
                 id="surveyName"
                 value={SurveyNameState}
                 onChange={handleSurveyNameChange}
             />
-            <label htmlFor="QuestionType">Choose Your Question Type:</label>
+            {SurveyNameState.length === 0 && (
+                <span className="errorMessage">*</span>
+            )}
+            <h5 htmlFor="QuestionType">Choose Your Question Type:</h5>
             <select onChange={handleSelectChange} value={questionType} name="questionType" id="questionType">
                 <option value="radio">Grid</option>
                 <option value="text">Text</option>
             </select>
             <br/>
-            <label htmlFor="QuestionRepetition">will the question be addressed to ?:</label>
+            <h5 htmlFor="QuestionRepetition">will the question be addressed to ?:</h5>
             <select onChange={handleQuestionRepetitionChange} value={questionRepetition} name="questionRepetition" id="questionRepetition">
                 <option value="multiple">Team</option>
                 <option value="single">student</option>
@@ -85,8 +152,11 @@ const Form = ({user}) => {
             <input
                 type="button"
                 value="Add New Question"
+                className="btn-outline-success"
                 onClick={addQuestion}
             />
+            <br/>
+            <br/>
             {
                 question.map((val, idx) => (
                     <SurveyInput
@@ -98,7 +168,16 @@ const Form = ({user}) => {
                     />
                 ))
             }
-            <input type="submit" className="btn-primary" value="Save" />
+            <div align="center" key="save-btn">
+                <input type="submit" className="btn-primary" value="Save Survey" />
+            </div>
+            <br/>
+            {surveyErrorState.length > 0 && (
+                <span className="errorMessage">{surveyErrorState}</span>
+            )}
+            {surveySuccessState.length > 0 && (
+                <span className="badge-success">{surveySuccessState}</span>
+            )}
         </form>
         </div>
     );

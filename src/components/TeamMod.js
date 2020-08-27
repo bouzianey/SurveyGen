@@ -1,30 +1,25 @@
 import React, { useState } from "react";
-import './popup_window.css'
-import './SignUp.css'
+import './styling.css';
 
 const TeamForm = ({user,onChangeClose}) =>{
 
-    const [teamNameState, setteamNameState] = useState(null);
+    const [teamNameState, setteamNameState] = useState("");
     const [classIdState, setClassIdState] = useState("");
     const [classList, setClassList] = useState([]);
     const [displayClassList, setdisplayClassList] = useState(true);
-    const [formErrorsState, setformErrorsState] = useState({teamName:""});
+    const [formErrorsState, setformErrorsState] = useState("");
 
       const formValid = () => {
 
           let valid = true;
 
             // validate form errors being empty
-            Object.values(formErrorsState).forEach(val => {
-
-              val.length > 0 && (valid = false);
-            });
+            formErrorsState.length > 0 && (valid = false);
             // validate the form was filled out
-            if(teamNameState === null) {
+            if(teamNameState === "") {
 
                 valid = false;
-            };
-            console.log("valid state : ",valid)
+            }
         return valid;
   };
 
@@ -60,10 +55,8 @@ const TeamForm = ({user,onChangeClose}) =>{
             setdisplayClassList(false);
     }
 
-    const addTeam = e => {
+    const addTeam = () => {
 
-            e.preventDefault();
-        console.log("team name : ",formErrorsState.teamName);
         if (formValid() === true) {
 
             const objectToSend2 = {
@@ -79,61 +72,79 @@ const TeamForm = ({user,onChangeClose}) =>{
             })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log(res);
+                    if(res === "failed")
+                    {
+                        setformErrorsState("Team already exists");
+                    }
+                    else
+                    {
+                        setformErrorsState("");
+                    }
                 });
-        }else {
-                console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+        }
+        else {
+                if(formErrorsState.length === 0){
+                    setformErrorsState("Minimum 3 characters required");
+                }
         }
       };
     const handleTeamNameChange = e => {
 
             setteamNameState(e.target.value);
-            formErrorsState.teamName = e.target.value.length < 3 ? "minimum 3 characaters required" : "";
+            if(e.target.value.length < 3){
+                setformErrorsState("Minimum 3 characters required");
+            }else
+            {
+                setformErrorsState("");
+            }
     };
     const handleSelectChange = e => {
 
         setClassIdState(e.target.value);
 
     };
-    const handleCloseChange = e =>{
-            onChangeClose();
-        };
   return (
-    <form onSubmit={addTeam}>
+    <div key={124}>
                 {
                     displayClassList === true ? getClassList() : ""
                 }
-                <div className="teamName">
-                    <label htmlFor="teamName">Type a Team name :</label>
+                <div align="center" className="teamName" key={2934}>
+                    <h5>Type a Team name :</h5>
                     <input
                         type="text"
-                        className={formErrorsState.teamName.length > 0 ? "error" : null}
+                        className={formErrorsState.length > 0 ? "error" : ""}
                         name="teamName"
-                        placeholder="team Name"
-                        noValidate
+                        placeholder="Team Name"
                         onChange={handleTeamNameChange}
                     />
-                    {formErrorsState.teamName.length > 0 && (
-                        <span className="errorMessage">{formErrorsState.teamName}</span>
+                    {formErrorsState.length > 0 && (
+                        <span className="errorMessage">{formErrorsState}</span>
                     )}
                 </div>
-                <label htmlFor="ClassType">Choose a Class for this team : </label>
+                <br/>
+                <div align="center" className="className" key={2373}>
+                    <h5>Choose a Class for this team : </h5>
                     <select onChange={handleSelectChange} value={classIdState} name="className" id="111">
                         {
                             classList.map((val, idx) => (
 
-                                <option value={val.classID}>{val.className}</option>
+                                <option key={idx} value={val.classID}>{val.className}</option>
                             ))
                          }
                     </select>
+                </div>
                 <br/>
-                <table border={0} id="22">
-             <tr>
-               <td> <input type="submit" className="btn-cancel" onClick={handleCloseChange} value="Close"/></td>
-               <td> <input type="submit" className="btn-primary" value="Add" /></td>
-             </tr>
-                </table>
-    </form>
+                <br/>
+                <div align="center" className="add-team" key={34728}>
+                    <table border={0} id="22" key={22}>
+                        <tbody>
+                         <tr>
+                           <td><input type="submit" className="btn-primary" onClick={(id) =>addTeam()} value="Create New Team" /></td>
+                         </tr>
+                        </tbody>
+                    </table>
+                </div>
+    </div>
   );
 }
 

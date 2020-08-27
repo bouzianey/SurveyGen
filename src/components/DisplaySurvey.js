@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextComponent from './QuestionTextResponse';
 import RadioComponent from './QuestionRadioResponse';
+import { MDBDataTable } from 'mdbreact';
 import Form from './SurveyFormMod';
-import './popup_window.css'
-import './SignUp.css'
+import './styling.css'
 
 const DisplayClassSurvey = ({user}) =>{
 
+        const [resultState, setResultState] = useState("");
         const [classIdState, setClassIdState] = useState("");
         const [classList, setClassList] = useState([]);
         const [studentSurveyList, setStudentSurveyList] = useState([]);
@@ -16,26 +17,72 @@ const DisplayClassSurvey = ({user}) =>{
         const [isShown, setShown] = useState(false);
         const [isShownButton, setShownButton] = useState(false);
         const [isShownModButton, setShownModButton] = useState(false);
-        const [isDisplayed, setIsDisplayed] = useState(true);
         const [displayClassList, setDisplayClassList] = useState(false);
+        const [dataObj, setDataObj] = useState({});
 
 
-         const displaySurveyList = e => {
+        useEffect(() => {
 
-            setIsDisplayed(false);
+            const displaySurveyList = e => {
 
             fetch("http://localhost:5000/get_survey_list", {
                 method: "POST",
                 headers: {
                 "Content-type": "application/json",
               },
-                body: JSON.stringify(user.id),
+                body: JSON.stringify(1),
             })
               .then((res) => res.json())
               .then((res) => {
                     setStudentSurveyList(res);
+
+                    const data = {
+                              columns: [
+                                {
+                                  label: 'ID',
+                                  field: 'ID',
+                                  sort: 'asc',
+                                  width: 150
+                                },
+                                {
+                                  label: 'Name',
+                                  field: 'Name',
+                                  sort: 'asc',
+                                  width: 270
+                                },
+                                {
+                                  label: 'Date',
+                                  field: 'Date',
+                                  sort: 'asc',
+                                  width: 200
+                                },
+                                {
+                                  label: 'Button',
+                                  field: 'Button',
+                                  sort: 'asc',
+                                  width: 100
+                                }
+                              ]
+                    }
+                 const rowList = [];
+                    console.log(res)
+                for (const surveyList of res) {
+
+                  const rowObj = {
+                    ID: surveyList.surveyID,
+                    Name: surveyList.name,
+                    Date: surveyList.date,
+                    Button: <input type="submit" className="btn-primary" onClick={(id) =>displaySurvey(surveyList.surveyID)}  value="Display Survey" />
+
+                  }
+                  rowList.push(rowObj);
+                }
+                data.rows = rowList;
+                setDataObj(data);
               });
       };
+    displaySurveyList();
+  }, []);
 
         const displaySurvey = (id) => {
 
@@ -58,7 +105,7 @@ const DisplayClassSurvey = ({user}) =>{
             openForm_Instructions();
       };
         const modifySurvey = () => {
-            setStudentSurveyQuestion([]);
+            //setStudentSurveyQuestion([]);
             setShown(true);
             setShownModButton(false);
 
@@ -73,7 +120,7 @@ const DisplayClassSurvey = ({user}) =>{
               .then((res) => {
                     setStudentSurvey(res);
               });
-            openForm_Instructions();
+            openForm_SurveyMod();
       };
         const getClassList = e => {
 
@@ -121,15 +168,33 @@ const DisplayClassSurvey = ({user}) =>{
             })
               .then((res) => res.json())
               .then((res) => {
-                  console.log(res);
+                  if(res === "success")
+                  {
+                      setResultState("success");
+                  }
+                  else
+                  {
+                      setResultState("failure");
+                  }
               });
+            closeForm_Instructions();
       };
+            const openForm_SurveyMod = () => {
+                document.getElementById("instructionForm").style.display = "none";
+                document.getElementById("SurveyMod").style.display = "block";
+            };
+            const closeForm_SurveyMod = () => {
+                document.getElementById("instructionForm").style.display = "block";
+                document.getElementById("SurveyMod").style.display = "none";
+            };
             const openForm_Instructions = () => {
                 document.getElementById("instructionForm").style.display = "block";
+                document.getElementById("DataGrid").style.display = "none";
                 setShownButton(true);
             };
             const closeForm_Instructions = () => {
                 document.getElementById("instructionForm").style.display = "none";
+                document.getElementById("DataGrid").style.display = "block";
                 setDisplayClassList(false);
                 setShownButton(false);
                 setShownModButton(false);
@@ -142,23 +207,29 @@ const DisplayClassSurvey = ({user}) =>{
   return (
     <div className="wrapper" id="1">
         {
-                isDisplayed == true ? displaySurveyList() : ""
-        }
-        {
                 displayClassList === true ? getClassList() : ""
         }
-        <table border={2} id="1">
+        <h2>List of all Surveys</h2>
+        <div id="DataGrid">
+            <MDBDataTable
+                striped
+                bordered
+                small
+                data={dataObj}
+              />
+        </div>
+        <div className="form-wrapper" id="SurveyMod">
             {
-                studentSurveyList.map((surveyList, idx) => (
-                    <tr>
-                        <td><b>{surveyList.surveyID}: </b></td><td><b>Name :</b> {surveyList.name} </td><td><b>Date :</b> {surveyList.date} </td>
-                        <td><input type="submit" className="btn-primary" onClick={(id) =>displaySurvey(surveyList.surveyID)}  value="Display Survey" /></td>
-                    </tr>
-
-                ))
+                  isShown === true ? <Form surveyModification={studentSurvey} user={user} closeForm_SurveyMod={closeForm_SurveyMod}/> : ""
             }
-        </table>
-        <br/>
+            <label htmlFor="result"></label>
+            {resultState === "success" && (
+                <span className="badge-success">Survey was successfully assigned to this class</span>
+            )}
+            {resultState === "failure" && (
+                <span className="errorMessage">Survey was already assigned to this class</span>
+            )}
+        </div>
         <div className="form-popup" id="instructionForm">
             {
                 studentSurveyQuestion.map((question, i) => (
@@ -170,36 +241,37 @@ const DisplayClassSurvey = ({user}) =>{
 
                 ))
             }
-                    <label htmlFor="ClassType">Assign survey to a class : </label>
-                    <select onChange={handleSelectChange} value={classIdState} name="className" id="111">
-                        {
-                            classList.map((val, idx) => (
+                    <h5 >Assign survey to a class : </h5>
+                    <div key="classList" align="center">
+                        <select onChange={handleSelectChange} value={classIdState} name="className" id="111">
+                            {
+                                classList.map((val, idx) => (
 
-                                <option value={val.classID}>{val.className}</option>
-                            ))
-                         }
-                    </select>
-              {
-                  isShown == true ? <Form surveyModification={studentSurvey} user={user}/> : ""
-              }
-              <table border={0} id="556">
-                  <tr>
+                                    <option value={val.classID}>{val.className}</option>
+                                ))
+                             }
+                        </select>
+                    </div>
+              <table border={0} id="556" align="center" className="table-grid">
+                  <tbody align="center">
+                    <tr key={433}>
                       <td>
-            {
-                isShownButton == true ? <input type="submit" className="btn-cancel" onClick={closeForm_Instructions} value="Close"/> : ""
-            }
+                            {
+                                isShownButton === true ? <input type="submit" className="btn-danger" onClick={closeForm_Instructions} value="Close"/> : ""
+                            }
                       </td>
                       <td>
-            {
-                isShownModButton == true ? <input type="submit" className="btn-primary" onClick={(id) =>modifySurvey()}  value="Use Survey Content" /> : ""
-            }
+                            {
+                                isShownButton === true ? <input type="submit" className="btn-primary" onClick={(id) =>modifySurvey()}  value="Duplicate Survey" /> : ""
+                            }
                       </td>
                       <td>
-            {
-                isShownButton == true ? <input type="submit" className="btn-primary" onClick={(id) =>SetSurveyClass()}  value="Assign Survey to Class" /> : ""
-            }
+                            {
+                                isShownButton === true ? <input type="submit" className="btn-primary" onClick={(id) =>SetSurveyClass()}  value="Assign Survey to Class" /> : ""
+                            }
                       </td>
-                </tr>
+                    </tr>
+                  </tbody>
             </table>
         </div>
 

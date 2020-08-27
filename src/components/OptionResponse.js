@@ -6,16 +6,28 @@ import PropTypes from 'prop-types';
 const OptionComponent = ({ i, option}) => {
 
     return (
-    <div key={i}>
 
-        <label htmlFor='{optionID}'>{option.content}</label>
-        <input type="radio" id="1" name={i} value="1"/>
-        <input type="radio" id="2" name={i} value="2"/>
-        <input type="radio" id="3" name={i} value="3"/>
-        <input type="radio" id="4" name={i} value="4"/>
-        <input type="radio" id="5" name={i} value="5"/>
+        <tr key={i}>
+            <td>
+            <h5 htmlFor='{optionID}'>{option.content}</h5>
+            </td>
+            <td>
+            <input type="radio" id="1" name={i} value="1"/>
+            </td>
+            <td>
+            <input type="radio" id="2" name={i} value="2"/>
+            </td>
+            <td>
+            <input type="radio" id="3" name={i} value="3"/>
+            </td>
+            <td>
+            <input type="radio" id="4" name={i} value="4"/>
+            </td>
+            <td>
+            <input type="radio" id="5" name={i} value="5"/>
+            </td>
+        </tr>
 
-    </div>
   );
 };
 

@@ -30,13 +30,12 @@ const SurveyInput = ({ idx, question, handleQuestionChange, handleTextContentCha
 
     };
 
-     const getRadioQuestion = () => <div key={`question-${idx}`}>
+     const getRadioQuestion = () => <div align="center" key={`question-${idx}`}>
 
-            <label htmlFor={questionID}>{question.label}</label>
-
+            <h6 htmlFor={questionID}>{question.label} </h6>
             <input
                 type="button"
-                value="Add another sub-question"
+                value="Add another option"
                 onClick={addOption}
             />
 
@@ -50,21 +49,24 @@ const SurveyInput = ({ idx, question, handleQuestionChange, handleTextContentCha
                     />
                 ))
             }
+            <br/>
             </div>
 
-    const getTextQuestion = () => <div key={`question-${idx}`}>
+    const getTextQuestion = () => <div align="center" key={`question-${idx}`}>
 
-            <label htmlFor={questionID}>{question.label}</label>
-            <input
-                type="text"
-                name={ContentID}
-                data-idx={idx}
-                id={ContentID}
-                className="name"
-                value={TextContent}
-                onChange={handleTextChange}
-
-            />
+                <h6 htmlFor={questionID}>{question.label}</h6>
+                <input
+                    type="text"
+                    className={TextContent.length === 0 ? "error" : null}
+                    data-idx={idx}
+                    id={ContentID}
+                    value={TextContent}
+                    onChange={handleTextChange}
+                />
+                {TextContent.length === 0 && (
+                    <span className="errorMessage">*</span>
+                )}
+                <br/>
             </div>
             const ContentID = `sub-content-${idx}`;
     return (

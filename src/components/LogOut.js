@@ -1,5 +1,5 @@
-import React, {Component, useState} from "react";
-import "./SignUp.css";
+import React, {useState} from "react";
+import './styling.css'
 
 
 const LogOutForm = ({onChangeLogout}) => {

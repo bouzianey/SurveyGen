@@ -8,16 +8,28 @@ const RadioComponent = ({ i, question}) => {
   return (
      <div key={`{question.label}`}>
         <p>
-        <label htmlFor='{QuestionID}'>{question.label}</label>
+        <h6 htmlFor='{QuestionID}'>{question.label}</h6>
         </p>
-         <p>
+         <table className="table-grid" border={0}>
+             <thead align="center">
+                <tr>
+                        <th></th>
+                        <th>Strongly disagree</th>
+                        <th>Disagree</th>
+                        <th>Neutral</th>
+                        <th>Agree</th>
+                        <th>Strongly agree</th>
+                </tr>
+            </thead>
+            <tbody align="center">
       {question.options &&
         question.options.map((option, idx) => (
           <>
             { <OptionComponent i ={i} option={option} /> }
           </>
         ))}
-        </p>
+            </tbody>
+        </table>
     </div>
   );
 };

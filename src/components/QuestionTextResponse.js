@@ -7,8 +7,8 @@ const TextComponent = ({ question}) => {
 
   return (
       <div>
-          <p><label htmlFor='{question.id}'>{question.label}  :  {question.student_name}</label></p>
-          <p><label htmlFor='{question.id}1'>{question.content}</label>
+          <p><h6 htmlFor='{question.id}'>{question.label}  :  {question.student_name}</h6></p>
+          <p><h5 htmlFor='{question.id}1'>{question.content}</h5>
           <input
               type="text"
               name='text'

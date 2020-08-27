@@ -1,29 +1,24 @@
-import React, { useState ,Component } from "react";
-import "./SignUp.css";
+import React, { useState } from "react";
+import './styling.css'
 
 
 const SignInForm = ({onChangeLogin}) => {
 
     const [emailState, setemailState] = useState(null);
     const [passwordState, setpasswordState] = useState(null);
+    const [surveySuccessState, setSurveySuccessState] = useState("");
     const [formErrorsState, setformErrorsState] = useState({email:"", password:""});
 
     const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     );
 
-    const formValid = ({ formErrorsState, ...rest }) => {
+    const formValid = () => {
+
       let valid = true;
-
-
-      // validate form errors being empty
+      // validate form errors being empty & the form was filled out
       Object.values(formErrorsState).forEach(val => {
         val.length > 0 && (valid = false);
-      });
-
-      // validate the form was filled out
-      Object.values(rest).forEach(val => {
-        val === null && (valid = false);
       });
 
       return valid;
@@ -31,9 +26,7 @@ const SignInForm = ({onChangeLogin}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(emailState, passwordState);
-    if (formValid) {
+    if (formValid()) {
 
       const objectToSend = {
             email: emailState,
@@ -48,14 +41,17 @@ const SignInForm = ({onChangeLogin}) => {
             })
               .then((res) => res.json())
               .then((res) => {
-                  console.log(res);
                   if (res.logged_in){
                       onChangeLogin(res.user)
+                  }
+                  else
+                  {
+                      setSurveySuccessState("Invalid Email Address or/and Password");
                   }
               });
     }
     else {
-      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+      setSurveySuccessState("Error! ALL fields are required");
     }
   };
 
@@ -107,7 +103,9 @@ const SignInForm = ({onChangeLogin}) => {
             </div>
             <div className="createAccount">
               <button type="submit">Sign In</button>
-              <small>Forgot your password?</small>
+                {surveySuccessState.length > 0 && (
+                <span className="errorMessage">{surveySuccessState}</span>
+            )}
             </div>
           </form>
         </div>

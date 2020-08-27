@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import './popup_window.css'
-import './SignUp.css'
+import './styling.css'
 
 const TeamForm = ({user,onChangeClose}) =>{
 
-    const [studentNameState, setStudentNameState] = useState(null);
-    const [studentEmailState, setStudentEmailState] = useState(null);
+    const [studentNameState, setStudentNameState] = useState("");
+    const [studentEmailState, setStudentEmailState] = useState("");
     const [classIdState, setClassIdState] = useState("");
     const [teamIdState, setTeamIdState] = useState("");
     const [classList, setClassList] = useState([]);
     const [teamList, setTeamList] = useState([]);
     const [displayClassList, setdisplayClassList] = useState(true);
-    const [formErrorsState, setformErrorsState] = useState({studentName:"", studentEmail:""});
+    const [StudentNameErrorsState, setStudentNameErrorsState] = useState("");
+    const [StudentEmailErrorsState, setStudentEmailErrorsState] = useState("");
+    const [result, setResult] = useState("");
 
     const emailRegex = RegExp(
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -21,12 +22,10 @@ const TeamForm = ({user,onChangeClose}) =>{
           let valid = true;
 
             // validate form errors being empty
-            Object.values(formErrorsState).forEach(val => {
-
-              val.length > 0 && (valid = false);
-            });
+            StudentNameErrorsState.length > 0 && (valid = false);
+            StudentEmailErrorsState.length > 0 && (valid = false);
             // validate the form was filled out
-            if(studentEmailState === null || studentNameState === null){
+            if(studentEmailState === "" || studentNameState === ""){
 
                 valid = false;
             }
@@ -96,9 +95,7 @@ const TeamForm = ({user,onChangeClose}) =>{
 
             });
     }
-    const addStudent = e => {
-
-        e.preventDefault();
+    const addStudent = () => {
 
         if(formValid() === true){
 
@@ -116,22 +113,54 @@ const TeamForm = ({user,onChangeClose}) =>{
             })
               .then((res) => res.json())
               .then((res) => {
-                    console.log(res);
+                    if(res === "failed")
+                    {
+                        setResult("Student already exists");
+                    }
+                    else
+                    {
+                        setResult("Student account was successfully created!");
+                    }
               });
             }else {
-                console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+                if(StudentNameErrorsState.length === 0)
+                {
+                    if(studentNameState === ""){
+                        setStudentNameErrorsState("Minimum 3 characters required");
+                    }
+
+                }
+                if(StudentEmailErrorsState.length === 0)
+                {
+                    if(studentEmailState === ""){
+                        setStudentEmailErrorsState("Field is required");
+                    }
+                }
         }
       };
 
     const handleStudentNameChange = e => {
 
             setStudentNameState(e.target.value);
-            formErrorsState.studentName = e.target.value.length < 3 ? "minimum 3 characaters required" : "";
+
+            if(e.target.value.length < 3){
+                setStudentNameErrorsState("Minimum 3 characters required");
+            }else
+            {
+                setStudentNameErrorsState("");
+            }
     };
     const handleStudentEmailChange = e => {
 
             setStudentEmailState(e.target.value);
-            formErrorsState.studentEmail = emailRegex.test(e.target.value) ? "" : "invalid email address";
+
+            if(emailRegex.test(e.target.value)){
+
+                setStudentEmailErrorsState("");
+            }else
+            {
+                setStudentEmailErrorsState("Invalid email address");
+            }
     };
     const handleSelectClassChange = e => {
 
@@ -147,64 +176,79 @@ const TeamForm = ({user,onChangeClose}) =>{
             onChangeClose();
         };
   return (
-    <form onSubmit={addStudent}>
+    <div key={125}>
                 {
                     displayClassList === true ? getClassList() : ""
                 }
-                <div className="studentName">
-                    <label htmlFor="studentName">Type Student name :</label>
+                <div align="center" className="studentName" key={1254}>
+                    <h5>Type Student name :</h5>
                     <input
                         type="text"
-                        className={formErrorsState.studentName.length > 0 ? "error" : null}
+                        className={StudentNameErrorsState.length > 0 ? "error" : ""}
                         name="StudentName"
                         placeholder="Student Name"
-                        noValidate
                         onChange={handleStudentNameChange}
                     />
-                    {formErrorsState.studentName.length > 0 && (
-                        <span className="errorMessage">{formErrorsState.studentName}</span>
+                    {StudentNameErrorsState.length > 0 && (
+                        <span className="errorMessage">{StudentNameErrorsState}</span>
                     )}
                 </div>
-                <div className="studentEmail">
-                    <label htmlFor="studentEmail">Type Student email :</label>
+                <br/>
+                <div align="center" className="studentEmail" key={1255}>
+                    <h5>Type Student email :</h5>
                     <input
                         type="text"
-                        className={formErrorsState.studentEmail.length > 0 ? "error" : null}
+                        className={StudentEmailErrorsState.length > 0 ? "error" : ""}
                         name="studentEmail"
                         placeholder="Student Email"
-                        noValidate
                         onChange={handleStudentEmailChange}
                     />
-                    {formErrorsState.studentEmail.length > 0 && (
-                        <span className="errorMessage">{formErrorsState.studentEmail}</span>
+                    {StudentEmailErrorsState.length > 0 && (
+                        <span className="errorMessage">{StudentEmailErrorsState}</span>
                     )}
                 </div>
-                <label htmlFor="ClassType">Choose a Class : </label>
+                <br/>
+                <div align="center" className="className" key={1256}>
+                    <h5>Choose a Class : </h5>
                     <select onChange={handleSelectClassChange} value={classIdState} name="className" id="111">
                         {
                             classList.map((val, idx) => (
 
-                                <option value={val.classID}>{val.className}</option>
+                                <option key={idx} value={val.classID}>{val.className}</option>
                             ))
                          }
                     </select>
+                </div>
                 <br/>
-                <label htmlFor="ClassType">Choose a Team : </label>
+                <div align="center" className="teamName" key={1257}>
+                    <h5>Choose a Team : </h5>
                     <select onChange={handleSelectTeamChange} value={teamIdState} name="teamName" id="222">
                         {
                             teamList.map((val, idx) => (
 
-                                <option value={val.teamID}>{val.teamName}</option>
+                                <option key={idx} value={val.teamID}>{val.teamName}</option>
                             ))
                          }
                     </select>
-                <table border={0} id="22">
-             <tr>
-               <td> <input type="submit" className="btn-cancel" onClick={handleCloseChange} value="Close"/></td>
-               <td> <input type="submit" className="btn-primary" value="Add" /></td>
-             </tr>
-                </table>
-    </form>
+                </div>
+                <br/>
+                <br/>
+                <div align="center" className="add-team" key={1259}>
+                    <table border={0} id="22">
+                        <tbody>
+                            <tr>
+                                <td> <input type="submit" className="btn-primary" onClick={(id) =>addStudent()} value="Create Student Account" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <br/>
+            <div align="center" className="error-msg" key={1258}>
+                {result.length > 0 && (
+                        <span className="errorMessage">{result}</span>
+                )}
+            </div>
+    </div>
   );
 }
 

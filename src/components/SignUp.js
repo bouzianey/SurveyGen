@@ -1,5 +1,5 @@
-import React, {Component, useState} from "react";
-import "./SignUp.css";
+import React, {useState} from "react";
+import './styling.css'
 
 
 const SignUpForm = () => {
@@ -14,17 +14,12 @@ const SignUpForm = () => {
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
   );
 
-  const formValid = ({ formErrorsState, ...rest }) => {
+  const formValid = () => {
     let valid = true;
-
-    // validate form errors being empty
+    console.log(formErrorsState);
+    // validate form errors being empty & the form was filled out
     Object.values(formErrorsState).forEach(val => {
       val.length > 0 && (valid = false);
-    });
-
-    // validate the form was filled out
-    Object.values(rest).forEach(val => {
-      val === null && (valid = false);
     });
 
     return valid;
@@ -32,7 +27,7 @@ const SignUpForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (formValid) {
+    if (formValid()) {
 
       const objectToSend = {
             firstName: firstNamelState,
@@ -54,7 +49,7 @@ const SignUpForm = () => {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
   };
-  const handleFirstNamedChange = (e) => {
+  const handleFirstNameChange = (e) => {
 
       setfirstNamelState(e.target.value);
       formErrorsState.firstName = e.target.value.length < 3 ? "minimum 3 characaters required" : "";
@@ -63,7 +58,7 @@ const SignUpForm = () => {
   const handleLastNameChange = (e) => {
 
     setLastlState(e.target.value);
-    formErrorsState.lasttName = e.target.value.length < 3 ? "minimum 3 characaters required" : "";
+    formErrorsState.lastName = e.target.value.length < 3 ? "minimum 3 characaters required" : "";
 
   };
   const handlePasswordChange = (e) => {
@@ -92,7 +87,7 @@ const SignUpForm = () => {
                 type="text"
                 name="firstName"
                 noValidate
-                onChange={handleFirstNamedChange}
+                onChange={handleFirstNameChange}
               />
               {formErrorsState.firstName.length > 0 && (
                 <span className="errorMessage">{formErrorsState.firstName}</span>

@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 
 
 const MultipleQuestionInput = ({ idx, option, handleOptionChange }) => {
-    const OptionID = `sub-option-${idx}`;
+    const OptionID = `sub-option-${option.content}`;
     return (
-        <div key={`option-${idx}`}>
+        <div align="center" key={`option-${idx}`}>
             <input
                 type="text"
                 name={OptionID}
                 data-idx={idx}
                 id={OptionID}
-                className="name"
+                className={option.content.length === 0 ? "error" : null}
                 value={option.content}
                 onChange={handleOptionChange}
             />
+            {option.content.length === 0 && (
+                <span className="errorMessage">*</span>
+            )}
         </div>
     );
 };

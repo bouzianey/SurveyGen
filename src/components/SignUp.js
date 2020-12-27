@@ -35,8 +35,9 @@ const SignUpForm = () => {
             email: emailState,
             password: passwordState
         }
-      fetch("http://localhost:5000/signup_instructor", {
+      fetch("https://survey-manager-yb-scsu.herokuapp.com/signup_instructor", {
                 method: "POST",
+                mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },

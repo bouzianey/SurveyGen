@@ -28,8 +28,9 @@ const ClassForm = ({user, onChangeClose}) =>{
                     id: user.id,
                     className: ClassNameState
                 }
-                fetch("http://localhost:5000/add_class_post", {
+                fetch("https://survey-manager-yb-scsu.herokuapp.com/add_class_post", {
                     method: "POST",
+                    mode: "no-cors",
                     headers: {
                         "Content-type": "application/json",
                     },
@@ -58,8 +59,9 @@ const ClassForm = ({user, onChangeClose}) =>{
             const objectToSend1 = {
                 id : user.id
             }
-        fetch("http://localhost:5000/get_class_list", {
+        fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_list", {
             method: "POST",
+            mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },

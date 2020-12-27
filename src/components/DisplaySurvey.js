@@ -25,8 +25,9 @@ const DisplayClassSurvey = ({user}) =>{
 
             const displaySurveyList = e => {
 
-            fetch("http://localhost:5000/get_survey_list", {
+            fetch("https://survey-manager-yb-scsu.herokuapp.com/get_survey_list", {
                 method: "POST",
+                mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
@@ -89,8 +90,9 @@ const DisplayClassSurvey = ({user}) =>{
             setShown(false);
             setShownModButton(true);
             setSurveyID(id);
-            fetch("http://localhost:5000/get_api", {
+            fetch("https://survey-manager-yb-scsu.herokuapp.com/get_api", {
                 method: "POST",
+                mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
@@ -128,8 +130,9 @@ const DisplayClassSurvey = ({user}) =>{
                 id : user.id
             }
             setDisplayClassList(false);
-        fetch("http://localhost:5000/get_class_list", {
+        fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_list", {
             method: "POST",
+            mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },
@@ -159,8 +162,9 @@ const DisplayClassSurvey = ({user}) =>{
                 classID : classIdState,
                 surveyID: survey_id
             }
-            fetch("http://localhost:5000/set_survey_to_class", {
+            fetch("https://survey-manager-yb-scsu.herokuapp.com/set_survey_to_class", {
                 method: "POST",
+                mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },

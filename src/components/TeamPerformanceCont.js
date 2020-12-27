@@ -15,8 +15,9 @@ const TeamPerformanceCont = ({ user, dataobj}) =>{
                 surveyList : dataobj.missed_survey
             }
         setNotificationState("success");
-        fetch("http://localhost:5000/notify_student_missed_surveys", {
+        fetch("https://survey-manager-yb-scsu.herokuapp.com/notify_student_missed_surveys", {
             method: "POST",
+            mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },

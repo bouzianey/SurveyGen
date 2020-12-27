@@ -109,8 +109,9 @@ const Form = ({user}) => {
                     questionList: question
                 }
                 setSurveySuccessState("Survey was successfully created");
-                fetch('http://localhost:5000/add_survey_api', {
+                fetch('https://survey-manager-yb-scsu.herokuapp.com/add_survey_api', {
                     method: 'POST',
+                    mode: "no-cors",
                     headers: {
                     'Content-type': 'application/json',
                 },

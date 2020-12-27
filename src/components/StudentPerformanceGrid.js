@@ -65,8 +65,9 @@ const StudentPerformanceGrid = ({user,surveyID, classSurveyList, studentList}) =
                 surveyID : surveyIdState,
                 feedback_comment : textAreaState
             }
-        fetch("http://localhost:5000/post_instructor_feedback", {
+        fetch("https://survey-manager-yb-scsu.herokuapp.com/post_instructor_feedback", {
             method: "POST",
+            mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },

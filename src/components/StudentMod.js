@@ -37,8 +37,9 @@ const TeamForm = ({user,onChangeClose}) =>{
             const objectToSend = {
                 id : user.id
             }
-        fetch("http://localhost:5000/get_class_list", {
+        fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_list", {
             method: "POST",
+            mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },
@@ -70,8 +71,9 @@ const TeamForm = ({user,onChangeClose}) =>{
             const objectToSend2 = {
                 id : idx
             }
-        fetch("http://localhost:5000/get_team_list", {
+        fetch("https://survey-manager-yb-scsu.herokuapp.com/get_team_list", {
             method: "POST",
+            mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },
@@ -104,8 +106,9 @@ const TeamForm = ({user,onChangeClose}) =>{
                 studentName: studentNameState,
                 studentEmail: studentEmailState
             }
-            fetch("http://localhost:5000/add_student_post", {
+            fetch("https://survey-manager-yb-scsu.herokuapp.com/add_student_post", {
                 method: "POST",
+                mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },

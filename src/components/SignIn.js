@@ -42,6 +42,7 @@ const SignInForm = ({onChangeLogin}) => {
             })
               //.then((res) => res.json())
               .then((res) => {
+                  console.log(res);
                   if (res.logged_in){
                       onChangeLogin(res.user)
                   }

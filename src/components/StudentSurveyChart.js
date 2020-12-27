@@ -23,7 +23,7 @@ const StudentSurveyChart = ({survey_ID,studentID,onCloseChange}) => {
         },
         body: JSON.stringify(objectToSend5),
       })
-        .then((res) => res.json())
+        //.then((res) => res.json())
         .then((res) => {
           setQuestionAnswerList(res.questionAnswerList);
           res.questionAnswerList.forEach(dataObj => {

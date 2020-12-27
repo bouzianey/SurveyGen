@@ -73,7 +73,7 @@ const StudentPerformanceGrid = ({user,surveyID, classSurveyList, studentList}) =
             },
             body: JSON.stringify(objectToSend33),
         })
-            .then((res) => res.json())
+            //.then((res) => res.json())
             .then((res) => {
                     if(res === "failed")
                     {

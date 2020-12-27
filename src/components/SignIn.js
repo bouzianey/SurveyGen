@@ -40,7 +40,7 @@ const SignInForm = ({onChangeLogin}) => {
               },
                 body: JSON.stringify(objectToSend),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
                   if (res.logged_in){
                       onChangeLogin(res.user)

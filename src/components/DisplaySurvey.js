@@ -33,7 +33,7 @@ const DisplayClassSurvey = ({user}) =>{
               },
                 body: JSON.stringify(1),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
                     setStudentSurveyList(res);
 
@@ -98,7 +98,7 @@ const DisplayClassSurvey = ({user}) =>{
               },
                 body: JSON.stringify(id),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
                     setStudentSurveyQuestion(res.questionList);
                     setStudentSurvey(res);
@@ -118,7 +118,7 @@ const DisplayClassSurvey = ({user}) =>{
               },
                 body: JSON.stringify(survey_id),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
                     setStudentSurvey(res);
               });
@@ -138,7 +138,7 @@ const DisplayClassSurvey = ({user}) =>{
             },
             body: JSON.stringify(objectToSend),
         })
-            .then((res) => res.json())
+            //.then((res) => res.json())
             .then((res) => {
 
                 if (res.result === "success"){
@@ -170,7 +170,7 @@ const DisplayClassSurvey = ({user}) =>{
               },
                 body: JSON.stringify(objectToSend1),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
                   if(res === "success")
                   {

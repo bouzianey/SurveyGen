@@ -36,7 +36,7 @@ const ClassForm = ({user, onChangeClose}) =>{
                     },
                     body: JSON.stringify(objectToSend),
                 })
-                    .then((res) => res.json())
+                    //.then((res) => res.json())
                     .then((res) => {
 
                         if (res === "success") {
@@ -67,7 +67,7 @@ const ClassForm = ({user, onChangeClose}) =>{
             },
             body: JSON.stringify(objectToSend1),
         })
-            .then((res) => res.json())
+            //.then((res) => res.json())
             .then((res) => {
 
                 if (res.result === "success"){

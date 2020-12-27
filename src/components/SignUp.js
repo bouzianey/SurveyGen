@@ -43,7 +43,7 @@ const SignUpForm = () => {
               },
                 body: JSON.stringify(objectToSend),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
               });
     } else {

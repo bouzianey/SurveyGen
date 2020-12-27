@@ -43,7 +43,7 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
             },
             body: JSON.stringify(objectToSend2),
         })
-            .then((res) => res.json())
+            //.then((res) => res.json())
             .then((res) => {
 
                 if (res.result === "success"){
@@ -76,7 +76,7 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
               },
                 body: JSON.stringify(objectToSend3),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
 
                     if (res.result === "success"){
@@ -107,7 +107,7 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
               },
                 body: JSON.stringify(objectToSend4),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
 
                     if (res.result === "success"){
@@ -166,7 +166,7 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
             },
             body: JSON.stringify(objectToSend),
         })
-            .then((res) => res.json())
+            //.then((res) => res.json())
             .then((res) => {
 
                 if (res.result === "success"){

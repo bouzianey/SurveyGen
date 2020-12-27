@@ -45,7 +45,7 @@ const TeamForm = ({user,onChangeClose}) =>{
             },
             body: JSON.stringify(objectToSend),
         })
-            .then((res) => res.json())
+            //.then((res) => res.json())
             .then((res) => {
 
                 if (res.result === "success"){
@@ -79,7 +79,7 @@ const TeamForm = ({user,onChangeClose}) =>{
             },
             body: JSON.stringify(objectToSend2),
         })
-            .then((res) => res.json())
+            //.then((res) => res.json())
             .then((res) => {
 
                 if (res.result === "success"){
@@ -114,7 +114,7 @@ const TeamForm = ({user,onChangeClose}) =>{
               },
                 body: JSON.stringify(objectToSend3),
             })
-              .then((res) => res.json())
+              //.then((res) => res.json())
               .then((res) => {
                     if(res === "failed")
                     {

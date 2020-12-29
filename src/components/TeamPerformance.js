@@ -22,7 +22,7 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
             }
         fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_list", {
             method: "POST",
-            mode: "no-cors",
+            //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },
@@ -56,7 +56,7 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
             }
         fetch("https://survey-manager-yb-scsu.herokuapp.com/get_team_list", {
             method: "POST",
-            mode: "no-cors",
+            //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },

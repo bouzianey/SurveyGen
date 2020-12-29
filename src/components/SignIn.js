@@ -34,7 +34,7 @@ const SignInForm = ({onChangeLogin}) => {
         }
       fetch("https://survey-manager-yb-scsu.herokuapp.com/login_instructor", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },

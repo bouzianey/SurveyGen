@@ -116,7 +116,7 @@ const Form = ({surveyModification, user, closeForm_SurveyMod}) => {
 
             fetch('https://survey-manager-yb-scsu.herokuapp.com/add_survey_api', {
                 method: 'POST',
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 'Content-type': 'application/json',
             },

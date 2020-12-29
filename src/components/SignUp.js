@@ -37,13 +37,13 @@ const SignUpForm = () => {
         }
       fetch("https://survey-manager-yb-scsu.herokuapp.com/signup_instructor", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
                 body: JSON.stringify(objectToSend),
             })
-              //.then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
               });
     } else {

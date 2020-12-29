@@ -88,7 +88,7 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
             }
         fetch("https://survey-manager-yb-scsu.herokuapp.com/get_student_contribution", {
             method: "POST",
-            mode: "no-cors",
+            //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },

@@ -17,7 +17,7 @@ const TeamPerformanceCont = ({ user, dataobj}) =>{
         setNotificationState("success");
         fetch("https://survey-manager-yb-scsu.herokuapp.com/notify_student_missed_surveys", {
             method: "POST",
-            mode: "no-cors",
+            //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },

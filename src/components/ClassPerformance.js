@@ -17,13 +17,13 @@ const ClassPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
             }
             fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_list", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
                 body: JSON.stringify(objectToSend),
             })
-              //.then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
 
                     if (res.result === "success"){
@@ -50,13 +50,13 @@ const ClassPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
             }
             fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_survey_list", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
                 body: JSON.stringify(objectToSend1),
             })
-              //.then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
 
                     if (res.result === "success"){

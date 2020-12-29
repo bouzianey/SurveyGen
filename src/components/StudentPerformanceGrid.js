@@ -67,13 +67,13 @@ const StudentPerformanceGrid = ({user,surveyID, classSurveyList, studentList}) =
             }
         fetch("https://survey-manager-yb-scsu.herokuapp.com/post_instructor_feedback", {
             method: "POST",
-            mode: "no-cors",
+            //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify(objectToSend33),
         })
-            //.then((res) => res.json())
+            .then((res) => res.json())
             .then((res) => {
                     if(res === "failed")
                     {

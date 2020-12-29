@@ -30,7 +30,7 @@ const TeamForm = ({user,onChangeClose}) =>{
             }
         fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_list", {
             method: "POST",
-            mode: "no-cors",
+            //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },
@@ -66,7 +66,7 @@ const TeamForm = ({user,onChangeClose}) =>{
             }
             fetch("https://survey-manager-yb-scsu.herokuapp.com/add_team_post", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                     "Content-type": "application/json",
                 },

@@ -27,13 +27,13 @@ const DisplayClassSurvey = ({user}) =>{
 
             fetch("https://survey-manager-yb-scsu.herokuapp.com/get_survey_list", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
                 body: JSON.stringify(1),
             })
-              //.then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
                     setStudentSurveyList(res);
 
@@ -92,13 +92,13 @@ const DisplayClassSurvey = ({user}) =>{
             setSurveyID(id);
             fetch("https://survey-manager-yb-scsu.herokuapp.com/get_api", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
                 body: JSON.stringify(id),
             })
-              //.then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
                     setStudentSurveyQuestion(res.questionList);
                     setStudentSurvey(res);
@@ -118,7 +118,7 @@ const DisplayClassSurvey = ({user}) =>{
               },
                 body: JSON.stringify(survey_id),
             })
-              //.then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
                     setStudentSurvey(res);
               });
@@ -132,13 +132,13 @@ const DisplayClassSurvey = ({user}) =>{
             setDisplayClassList(false);
         fetch("https://survey-manager-yb-scsu.herokuapp.com/get_class_list", {
             method: "POST",
-            mode: "no-cors",
+            //mode: "no-cors",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify(objectToSend),
         })
-            //.then((res) => res.json())
+            .then((res) => res.json())
             .then((res) => {
 
                 if (res.result === "success"){
@@ -164,13 +164,13 @@ const DisplayClassSurvey = ({user}) =>{
             }
             fetch("https://survey-manager-yb-scsu.herokuapp.com/set_survey_to_class", {
                 method: "POST",
-                mode: "no-cors",
+                //mode: "no-cors",
                 headers: {
                 "Content-type": "application/json",
               },
                 body: JSON.stringify(objectToSend1),
             })
-              //.then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
                   if(res === "success")
                   {

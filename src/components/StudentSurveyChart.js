@@ -17,13 +17,13 @@ const StudentSurveyChart = ({survey_ID,studentID,onCloseChange}) => {
       console.log("object to send : ",objectToSend5);
       fetch("https://survey-manager-yb-scsu.herokuapp.com/get_student_survey_performance", {
         method: "POST",
-        mode: "no-cors",
+        //mode: "no-cors",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(objectToSend5),
       })
-        //.then((res) => res.json())
+        .then((res) => res.json())
         .then((res) => {
           setQuestionAnswerList(res.questionAnswerList);
           res.questionAnswerList.forEach(dataObj => {

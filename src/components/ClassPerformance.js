@@ -37,7 +37,7 @@ const ClassPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                     }
                     else
                     {
-                        console.log("class : ",res.result);
+                        alert("class : "+res.result);
                     }
               });
             setDisplayClassList(false);
@@ -69,13 +69,12 @@ const ClassPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                     }
                     else
                     {
-                        console.log("Survey  :",res.result);
+                        alert("Survey  :"+res.result);
                     }
               });
       };
         const DisplayPerformance = (e) => {
                 e.preventDefault();
-                console.log("class ID :",classIdState,"survey ID :", surveyIdState);
         };
         const handleSelectClassChange = e => {
 

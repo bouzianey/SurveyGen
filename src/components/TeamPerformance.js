@@ -42,7 +42,7 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                 }
                 else
                 {
-                    console.log("class  :",res.result);
+                    alert("class  :"+res.result);
                 }
 
             });
@@ -76,7 +76,7 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                 }
                 else
                 {
-                    console.log("class  :",res.result);
+                    alert("class  :"+res.result);
                 }
 
             });
@@ -134,7 +134,7 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                 }
                 else
                 {
-                    console.log("class  :",res.result);
+                    alert("class  :"+res.result);
                 }
             });
     }

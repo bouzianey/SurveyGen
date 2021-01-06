@@ -59,8 +59,6 @@ function App() {
 
       setloggedInStatus(val);
       setUser({});
-      console.log("Log out : ",loggedInStatus);
-
   }
 
   const handleLogin = (data) => {

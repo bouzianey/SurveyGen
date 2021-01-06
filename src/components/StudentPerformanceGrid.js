@@ -91,7 +91,6 @@ const StudentPerformanceGrid = ({user,surveyID, classSurveyList, studentList}) =
     }
     const getStudentDict = () => {
 
-            console.log("student List Entry : ",studentList);
             const data = {
                               columns: [
                                 {

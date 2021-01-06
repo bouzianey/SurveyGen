@@ -42,7 +42,7 @@ const Form = ({surveyModification, user, closeForm_SurveyMod}) => {
     const formValid = () => {
 
         let valid = true;
-        console.log(formErrorsState);
+
         // validate form errors being empty & the form was filled out
         Object.values(formErrorsState).forEach(val => {
           val.check_point === "invalid" && (valid = false);

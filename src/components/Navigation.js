@@ -3,7 +3,6 @@ import { Link, withRouter } from "react-router-dom";
 import home_icon from "../static/survey-icon.png"
 
 function Navigation(props) {
-  console.log(props.loggedInStatus);
   return (
     <div className="navigation">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

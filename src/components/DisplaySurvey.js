@@ -31,7 +31,7 @@ const DisplayClassSurvey = ({user}) =>{
                 headers: {
                 "Content-type": "application/json",
               },
-                body: JSON.stringify(1),
+                body: JSON.stringify(user.id),
             })
               .then((res) => res.json())
               .then((res) => {
@@ -66,7 +66,6 @@ const DisplayClassSurvey = ({user}) =>{
                               ]
                     }
                  const rowList = [];
-                    console.log(res)
                 for (const surveyList of res) {
 
                   const rowObj = {
@@ -151,7 +150,7 @@ const DisplayClassSurvey = ({user}) =>{
                 }
                 else
                 {
-                    console.log("class : ",res.result);
+                    alert("class : "+res.result);
                 }
 
             });

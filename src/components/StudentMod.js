@@ -29,7 +29,6 @@ const TeamForm = ({user,onChangeClose}) =>{
 
                 valid = false;
             }
-            console.log("valid state : ",valid)
         return valid;
     };
     const getClassList = e => {
@@ -59,7 +58,7 @@ const TeamForm = ({user,onChangeClose}) =>{
                 }
                 else
                 {
-                    console.log("class  :",res.result);
+                    alert("class  :"+res.result);
                 }
 
             });

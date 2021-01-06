@@ -16,7 +16,6 @@ const SignUpForm = () => {
 
   const formValid = () => {
     let valid = true;
-    console.log(formErrorsState);
     // validate form errors being empty & the form was filled out
     Object.values(formErrorsState).forEach(val => {
       val.length > 0 && (valid = false);

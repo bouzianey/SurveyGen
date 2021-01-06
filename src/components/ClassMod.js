@@ -76,7 +76,7 @@ const ClassForm = ({user, onChangeClose}) =>{
                 }
                 else
                 {
-                    console.log("class : ",res.result);
+                    alert("class : "+res.result);
                 }
 
             });

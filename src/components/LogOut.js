@@ -3,7 +3,6 @@ import './styling.css'
 
 
 const LogOutForm = ({onChangeLogout}) => {
-    console.log("LogOutForm")
     const [LogStatus, setLogStatus] = useState("NOT_LOGGED_IN");
 
     const Logout = () => {

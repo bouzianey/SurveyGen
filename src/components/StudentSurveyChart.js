@@ -14,7 +14,7 @@ const StudentSurveyChart = ({survey_ID,studentID,onCloseChange}) => {
         survey_id: survey_ID,
         student_id: studentID,
       };
-      console.log("object to send : ",objectToSend5);
+
       fetch("https://survey-manager-yb-scsu.herokuapp.com/get_student_survey_performance", {
         method: "POST",
         //mode: "no-cors",

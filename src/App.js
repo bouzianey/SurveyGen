@@ -72,7 +72,10 @@ function App() {
       <Router>
         <Navigation loggedInStatus={loggedInStatus}/>
         <Switch>
-          <Route path="/" exact component={() => loggedInStatus  === "NOT_LOGGED_IN" ?  <Home onLogin={handleLogin}/> : ""} />
+          <Route
+              path="/"
+              exact component={() => loggedInStatus  === "NOT_LOGGED_IN" ?  <Home onLogin={handleLogin}/> : ""}
+          />
           <Route
               path="/"
               exact component={() => loggedInStatus  === "LOGGED_IN" ? <DisplayClassSurvey user={user}/> : ""}

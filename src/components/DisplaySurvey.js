@@ -106,7 +106,6 @@ const DisplayClassSurvey = ({user}) =>{
             openForm_Instructions();
       };
         const modifySurvey = () => {
-            //setStudentSurveyQuestion([]);
             setShown(true);
             setShownModButton(false);
 
@@ -148,11 +147,6 @@ const DisplayClassSurvey = ({user}) =>{
                         break
                     }
                 }
-                else
-                {
-                    alert("class : "+res.result);
-                }
-
             });
     }
         const SetSurveyClass = () => {

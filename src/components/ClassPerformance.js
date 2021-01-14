@@ -35,10 +35,6 @@ const ClassPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                         break
                         }
                     }
-                    else
-                    {
-                        alert("class : "+res.result);
-                    }
               });
             setDisplayClassList(false);
       };
@@ -66,10 +62,6 @@ const ClassPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                             setSurveyIdState(it.surveyID);
                             break
                         }
-                    }
-                    else
-                    {
-                        alert("Survey  :"+res.result);
                     }
               });
       };

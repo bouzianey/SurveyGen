@@ -74,11 +74,6 @@ const ClassForm = ({user, onChangeClose}) =>{
 
                     setClassList(res.classList);
                 }
-                else
-                {
-                    alert("class : "+res.result);
-                }
-
             });
             setdisplayClassList(false);
     }

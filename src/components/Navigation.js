@@ -79,7 +79,7 @@ function Navigation(props) {
                   }`}
               >
                 <Link className="nav-link" to="/DataVisualization">
-                  Data Visualization
+                  Stats
                 </Link>
               </li>
                   : ""
@@ -95,18 +95,6 @@ function Navigation(props) {
                 </Link>
               </li> : ""
               }
-              { props.loggedInStatus === "NOT_LOGGED_IN"  ?
-              <li
-                  className={`nav-item  ${
-                      props.location.pathname === "/SignIn" ? "active" : ""
-                  }`}
-              >
-                <Link className="nav-link" to="/SignIn">
-                  Sign in
-                </Link>
-              </li>: ""
-              }
-
               { props.loggedInStatus === "LOGGED_IN"  ?
                 <li
                   className={`nav-item  ${

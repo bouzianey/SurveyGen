@@ -16,44 +16,8 @@ import DataVisualization from "./components/DataVisualization"
 
 function App() {
 
-        const [loggedInStatus, setloggedInStatus] = useState("NOT_LOGGED_IN");
-        const [user, setUser] = useState({});
-
-  const checkLoginStatus= (id) => {
-
-    fetch("https://survey-manager-yb-scsu.herokuapp.com/login_instructor", {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                "Content-type": "application/json",
-              },
-                body: JSON.stringify(id),
-            })
-              .then((res) => res.json())
-              .then((res) => {
-                     if (
-                          res.data.logged_in &&
-                          this.state.loggedInStatus === "NOT_LOGGED_IN"
-                        ) {
-                          this.setState({
-                            loggedInStatus: "LOGGED_IN",
-                            user: res.data.user
-                          });
-                        } else if (
-                          !res.data.logged_in &
-                          (this.state.loggedInStatus === "LOGGED_IN")
-                        ) {
-                          this.setState({
-                            loggedInStatus: "NOT_LOGGED_IN",
-                            user: {}
-                          });
-                          }
-              });
-  }
-
-  const componentDidMount= () => {
-    this.checkLoginStatus();
-  }
+  const [loggedInStatus, setloggedInStatus] = useState("NOT_LOGGED_IN");
+  const [user, setUser] = useState({});
 
   const handleLogout = (val) => {
 
@@ -63,8 +27,8 @@ function App() {
 
   const handleLogin = (data) => {
 
-    setloggedInStatus("LOGGED_IN")
-      setUser(data)
+    setloggedInStatus("LOGGED_IN");
+    setUser(data);
   }
 
   return (
@@ -96,9 +60,6 @@ function App() {
           />
           <Route path="/SignUp"
                  exact component={() => loggedInStatus  === "NOT_LOGGED_IN" ? <SignUpForm  onChangeLogin={handleLogin}/> : ""}
-          />
-          <Route path="/SignIn"
-                 exact component={() => loggedInStatus  === "NOT_LOGGED_IN" ? <SignInForm  onChangeLogin={handleLogin}/> : ""}
           />
           <Route path="/LogOut"
                  exact component={() => loggedInStatus  === "LOGGED_IN" ? <LogOutForm onChangeLogout={handleLogout} /> : ""}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom';
 import './styling.css'
 
 
@@ -8,10 +9,11 @@ const SignInForm = ({onChangeLogin}) => {
     const [passwordState, setpasswordState] = useState(null);
     const [surveySuccessState, setSurveySuccessState] = useState("");
     const [formErrorsState, setformErrorsState] = useState({email:"", password:""});
-
     const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     );
+    //History
+    const history = useHistory();
 
     const formValid = () => {
 
@@ -45,6 +47,7 @@ const SignInForm = ({onChangeLogin}) => {
 
                   if (res.logged_in){
                       onChangeLogin(res.user)
+                      history.push("/DisplaySurvey");
                   }
                   else
                   {

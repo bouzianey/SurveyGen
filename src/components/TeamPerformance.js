@@ -40,13 +40,7 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                         break
                     }
                 }
-                else
-                {
-                    alert("class  :"+res.result);
-                }
-
             });
-
             setdisplayClassList(false);
     }
     const getTeamList = (idx) => {
@@ -74,11 +68,6 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                         break
                     }
                 }
-                else
-                {
-                    alert("class  :"+res.result);
-                }
-
             });
     }
     const getStudentContribution = (idx) => {
@@ -131,10 +120,6 @@ const TeamPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =>{
                         }]
                     };
                     setChartData(chartData =>  data);
-                }
-                else
-                {
-                    alert("class  :"+res.result);
                 }
             });
     }

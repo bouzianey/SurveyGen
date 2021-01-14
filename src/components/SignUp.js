@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useHistory} from 'react-router-dom';
 import './styling.css'
 
 
@@ -7,9 +8,12 @@ const SignUpForm = () => {
   const [firstNamelState, setfirstNamelState] = useState(null);
   const [lastNamelState, setLastlState] = useState(null);
   const [emailState, setemailState] = useState(null);
+  const [keyState, setKeyState] = useState(null);
   const [passwordState, setpasswordState] = useState(null);
-  const [formErrorsState, setformErrorsState] = useState({firstName:"", lastName:"",email:"", password:""});
-
+  const [formErrorsState, setformErrorsState] = useState({firstName:"", lastName:"",email:"", key:"", password:""});
+  const [messageState, setMessageState] = useState('');
+  //History
+  const history = useHistory();
   const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
   );
@@ -32,6 +36,7 @@ const SignUpForm = () => {
             firstName: firstNamelState,
             lastName : lastNamelState,
             email: emailState,
+            key: keyState,
             password: passwordState
         }
       fetch("https://survey-manager-yb-scsu.herokuapp.com/signup_instructor", {
@@ -44,6 +49,14 @@ const SignUpForm = () => {
             })
               .then((res) => res.json())
               .then((res) => {
+                if (res.logged_in){
+                      setMessageState('');
+                      history.push("/");
+                  }
+                  else
+                  {
+                      setMessageState("User already exits and/or Registration key is incorrect");
+                  }
               });
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
@@ -66,7 +79,11 @@ const SignUpForm = () => {
       setpasswordState(e.target.value);
       formErrorsState.password = e.target.value.length < 6 ? "minimum 6 characaters required" : "";
   };
+  const handleKeyChange = (e) => {
 
+      setKeyState(e.target.value);
+      formErrorsState.key = e.target.value.length < 6 ? "minimum 6 characaters required" : "";
+  };
   const handleEmailChange = (e) => {
 
     setemailState(e.target.value);
@@ -135,6 +152,22 @@ const SignUpForm = () => {
                 <span className="errorMessage">{formErrorsState.password}</span>
               )}
             </div>
+            <div className="password">
+              <label htmlFor="password">Registration Key</label>
+              <input
+                className={formErrorsState.password.length > 0 ? "error" : null}
+                placeholder="Registration Key"
+                type="password"
+                name="keyRegistration"
+                onChange={handleKeyChange}
+              />
+              {formErrorsState.key.length > 0 && (
+                <span className="errorMessage">{formErrorsState.key}</span>
+              )}
+            </div>
+            {messageState.length > 0 && (
+                <span className="errorMessage">{messageState}</span>
+            )}
             <div className="createAccount">
               <button type="submit">Create Account</button>
               <small>Already Have an Account?</small>

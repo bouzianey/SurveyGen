@@ -56,11 +56,6 @@ const TeamForm = ({user,onChangeClose}) =>{
                         break
                     }
                 }
-                else
-                {
-                    alert("class  :"+res.result);
-                }
-
             });
 
             setdisplayClassList(false);

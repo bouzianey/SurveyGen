@@ -55,11 +55,6 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
                         break
                     }
                 }
-                else
-                {
-                    alert("class  :"+res.result);
-                }
-
             });
     }
     const getClassSurveyList = (classID) => {
@@ -87,10 +82,6 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
                             break
                         }
                     }
-                    else
-                    {
-                        alert("Survey  :"+res.result);
-                    }
               });
       };
     const getStudentList = (teamID) => {
@@ -117,10 +108,6 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
                             setStudentIdState(it.studentID);
                             break
                         }
-                    }
-                    else
-                    {
-                        alert("Survey  :"+res.result);
                     }
               });
     };
@@ -179,11 +166,6 @@ const StudentPerformance = ({user,OnEnableClass,OnEnableTeam,OnEnableStudent}) =
                         break;
                     }
                 }
-                else
-                {
-                    alert("class  :"+res.result);
-                }
-
             });
     }
     getClassList();

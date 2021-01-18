@@ -122,6 +122,7 @@ const Form = ({surveyModification, user, closeForm_SurveyMod}) => {
             },
                 body: JSON.stringify(objectToSend),
             })
+            closeForm_SurveyMod();
         }else
         {
             setSurveyErrorState("Error ! There should be some missing fields in your form");

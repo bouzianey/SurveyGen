@@ -4,6 +4,7 @@ import './styling.css';
 const TeamForm = ({user,onChangeClose}) =>{
 
     const [teamNameState, setteamNameState] = useState("");
+    const [teamSuccessState, setTeamSuccessState] = useState("");
     const [classIdState, setClassIdState] = useState("");
     const [classList, setClassList] = useState([]);
     const [displayClassList, setdisplayClassList] = useState(true);
@@ -72,10 +73,12 @@ const TeamForm = ({user,onChangeClose}) =>{
                     if(res === "failed")
                     {
                         setformErrorsState("Team already exists");
+                        setTeamSuccessState("");
                     }
                     else
                     {
                         setformErrorsState("");
+                        setTeamSuccessState("Team was successfully created");
                     }
                 });
         }
@@ -140,6 +143,11 @@ const TeamForm = ({user,onChangeClose}) =>{
                          </tr>
                         </tbody>
                     </table>
+                </div>
+                <div align={"center"}>
+                    {teamSuccessState.length > 0 && (
+                        <span className="badge-success">{teamSuccessState}</span>
+                    )}
                 </div>
     </div>
   );

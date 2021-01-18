@@ -75,20 +75,16 @@ const TeamForm = ({user,onChangeClose}) =>{
         })
             .then((res) => res.json())
             .then((res) => {
-
                 if (res.result === "success"){
-
                     setTeamList(res.teamList);
                     for(let it of res.teamList){
                         setTeamIdState(it.teamID);
                         break
                     }
                 }
-                else
-                {
-                    console.log("class  :",res.result);
+                else{
+                    setTeamList([]);
                 }
-
             });
     }
     const addStudent = () => {

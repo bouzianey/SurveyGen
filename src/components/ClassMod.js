@@ -4,6 +4,7 @@ import './styling.css'
 const ClassForm = ({user, onChangeClose}) =>{
 
         const [ClassNameState, setClassNameState] = useState("");
+        const [classSuccessState, setClassSuccessState] = useState("");
         const [displayClassList, setdisplayClassList] = useState(true);
         const [classList, setClassList] = useState([]);
         const [ClassErrorsState, setClassErrorsState] = useState("");
@@ -41,8 +42,10 @@ const ClassForm = ({user, onChangeClose}) =>{
 
                         if (res === "success") {
                             setClassErrorsState("");
+                            setClassSuccessState("Class was successfully created");
                         } else {
                             setClassErrorsState("Class already exists");
+                            setClassSuccessState('');
                         }
                     });
             }
@@ -71,7 +74,6 @@ const ClassForm = ({user, onChangeClose}) =>{
             .then((res) => {
 
                 if (res.result === "success"){
-
                     setClassList(res.classList);
                 }
             });
@@ -136,6 +138,11 @@ const ClassForm = ({user, onChangeClose}) =>{
                              </tr>
                         </tbody>
                     </table>
+                </div>
+                <div align={"center"}>
+                    {classSuccessState.length > 0 && (
+                        <span className="badge-success">{classSuccessState}</span>
+                    )}
                 </div>
             </div>
   );

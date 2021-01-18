@@ -17,6 +17,7 @@ const DisplayClassSurvey = ({user}) =>{
         const [isShown, setShown] = useState(false);
         const [isShownButton, setShownButton] = useState(false);
         const [isShownModButton, setShownModButton] = useState(false);
+        const [refreshSurveyList, setRefreshSurveyList] = useState(false);
         const [displayClassList, setDisplayClassList] = useState(false);
         const [dataObj, setDataObj] = useState({});
 
@@ -82,7 +83,7 @@ const DisplayClassSurvey = ({user}) =>{
               });
       };
     displaySurveyList();
-  }, []);
+  }, [refreshSurveyList]);
 
         const displaySurvey = (id) => {
 
@@ -195,6 +196,7 @@ const DisplayClassSurvey = ({user}) =>{
                 setDisplayClassList(false);
                 setShownButton(false);
                 setShownModButton(false);
+                setRefreshSurveyList(true);
             };
             const handleSelectChange = e => {
 

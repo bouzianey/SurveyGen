@@ -14,7 +14,6 @@ const SignInForm = ({onChangeLogin}) => {
     );
     //History
     const history = useHistory();
-
     const formValid = () => {
 
       let valid = true;
